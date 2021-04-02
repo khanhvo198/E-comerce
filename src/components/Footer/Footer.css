@@ -1,0 +1,9 @@
+.footer--container {
+    background-color: #F6F2F1;
+}
+
+.footer-icon {
+    font-size: 30px;
+    display: flex;
+    align-self: center;
+}
