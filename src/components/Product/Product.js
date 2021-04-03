@@ -4,7 +4,7 @@ import "./Product.css"
 
 const Product = ({ image, title, price, rating }) => {
     return (
-        <Col xs="3">
+        // <Col xs="3">
             <Card className="product">
                 <CardImg top width="100%" src={image} alt="Card Image" className="product__image" />
                 <CardBody>
@@ -14,13 +14,13 @@ const Product = ({ image, title, price, rating }) => {
                     <div className="product__rating">
                         {
                             Array(rating).fill().map((_, i) => (
-                                <p><BsStarFill /></p>
+                                <p key={i}><BsStarFill /></p>
                             ))
                         }
                     </div>
                 </CardBody>
             </Card>
-        </Col>
+        // </Col>
 
     )
 

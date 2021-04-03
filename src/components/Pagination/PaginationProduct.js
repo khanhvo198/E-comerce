@@ -2,36 +2,47 @@ import {Pagination, PaginationItem, PaginationLink } from "reactstrap"
 
 
 
-const PaginationProduct = () => {
+const PaginationProduct = ({totalProducts,paginate}) => {
+
+    const pageNumber = []
+
+    for(let i = 1; i <= Math.ceil(totalProducts/16); i++) {
+        pageNumber.push(i)
+    }
+    
+
     return (
         <Pagination size="lg" >
             <PaginationItem>
-                <PaginationLink first href="#"></PaginationLink>
+                <PaginationLink first href="#"
+                    onClick = {() => paginate(1)}
+                ></PaginationLink>
             </PaginationItem>
-            <PaginationItem>
+            {/* <PaginationItem>
                 <PaginationLink previous href="#"></PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-                <PaginationLink href="#">
-                    1
-                </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-                <PaginationLink href="#">
-                    2
-                </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-                <PaginationLink href="#">
-                    3
-                </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
+            </PaginationItem> */}
+            
+            {
+                pageNumber.map((number) => (
+                    <PaginationItem key={number}>
+                        <PaginationLink
+                            href="#"
+                            onClick={() => paginate(number)}
+                        >
+                        {number}
+                        </PaginationLink>
+                    </PaginationItem>
+                ))
+            }
+
+            {/* <PaginationItem>
                 <PaginationLink next href="#">
                 </PaginationLink>
-            </PaginationItem>
+            </PaginationItem> */}
             <PaginationItem>
-                <PaginationLink last href="#">
+                <PaginationLink last href="#"
+                    onClick={() => paginate(pageNumber[pageNumber.length - 1])}
+                >
                 </PaginationLink>
             </PaginationItem>
 
