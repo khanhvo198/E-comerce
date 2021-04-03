@@ -1,0 +1,22 @@
+
+
+/* .product__col {
+    margin: 5px 5px;
+} */
+
+.product__title {
+    font-weight: 800;
+}
+
+
+.product__price {
+    color: red;
+}
+
+.product__rating {
+    display: flex;
+    justify-content: center;
+}
+
+
+

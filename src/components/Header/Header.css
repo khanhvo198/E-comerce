@@ -23,15 +23,22 @@
 }
 
 
+.header--searchIcon {
+    font-size: 30px;
+    align-self: center;
+    
+}
+
 .header--cart {
     display: flex;
     align-self: center;
     font-size: 60px;
+    margin-left: 30px;
 
 }
 
 .header--left__search-bar > input {
-    max-width: 500px;
+    max-width: 800px;
 }
 
 .header--right__items {

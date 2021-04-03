@@ -1,5 +1,5 @@
 import { Button, Col, Input, List, Row, InputGroup, InputGroupAddon, Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from "reactstrap"
-import {AiOutlineShoppingCart} from 'react-icons/ai'
+import {AiOutlineShoppingCart, AiOutlineSearch} from 'react-icons/ai'
 import "./Header.css"
 import { useState } from "react"
 
@@ -18,7 +18,7 @@ const Header = () => {
                     <InputGroup className="header--left__search-bar">
                         <Input placeholder="Search something ..."/>
                         <InputGroupAddon className="header--left__button" addonType="append">
-                            <Button color="secondary">Search</Button>
+                            <AiOutlineSearch className="header--searchIcon" />
                         </InputGroupAddon>
                     </InputGroup>
                     <AiOutlineShoppingCart className="header--cart"/>
