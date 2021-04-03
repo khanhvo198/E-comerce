@@ -13,26 +13,26 @@ const Header = () => {
 
     return (
         <>
-            <Row className="header-container">
-                <Col xs="8" className="header--left__container">
+            <Row className="header">
+                <Col xs="2" className="header--link__brand">
                     <Link to='/' style={{textDecoration:'none', color:'inherit', alignSelf:'center'}} >
-                        <h3 className="header--left__brand">BK SHOP</h3>
+                        <h3 className="header__brand">BK SHOP</h3>
                     </Link>
-                    
-                    <InputGroup className="header--left__search-bar">
+                </Col>
+                <Col xs="8" className="header--search__bar">
+                    <InputGroup className="header--search__input">
                         <Input placeholder="Search something ..."/>
-                        <InputGroupAddon className="header--left__button" addonType="append">
+                        <InputGroupAddon className="header--search__icon" addonType="append">
                             <AiOutlineSearch className="header--searchIcon" />
                         </InputGroupAddon>
                     </InputGroup>
-                    <Link to="/checkout"     style={{display: 'flex', color: 'inherit', textDecoration:'none'} } >
+                    <Link to="/checkout" style={{display: 'flex', color: 'inherit', textDecoration:'none'} } >
                         <AiOutlineShoppingCart className="header--cart"/>
                         <span className="header--cart__count">0</span>
                     </Link>
-                    
                 </Col>
-                <Col xs="4">
-                    <List type="inline" className="header--right__items">
+                <Col xs="2" className="header--user">
+                    <List type="inline" className="header--user__items">
                         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                             <DropdownToggle caret>
                                 Login
