@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import {AiOutlineShoppingCart, AiOutlineSearch} from 'react-icons/ai'
 import "./Header.css"
 import { useState } from "react"
+import Cart from "../../feature/Cart/Cart"
 
 
 
@@ -12,10 +13,10 @@ const Header = () => {
     const toggle = () => setDropdownOpen(prevState => !prevState)
 
     return (
-        <>
+        
             <Row className="header">
                 <Col xs="2" className="header--link__brand">
-                    <Link to='/' style={{textDecoration:'none', color:'inherit', alignSelf:'center'}} >
+                <Link to='/' style={{textDecoration:'none', color:'inherit', alignSelf:'center'}} >
                         <h3 className="header__brand">BK SHOP</h3>
                     </Link>
                 </Col>
@@ -26,9 +27,10 @@ const Header = () => {
                             <AiOutlineSearch className="header--searchIcon" />
                         </InputGroupAddon>
                     </InputGroup>
-                    <Link to="/checkout" style={{display: 'flex', color: 'inherit', textDecoration:'none'} } >
-                        <AiOutlineShoppingCart className="header--cart"/>
-                        <span className="header--cart__count">0</span>
+                    <Link to="/checkout" style={{color: 'inherit', textDecoration:'none'} } >
+                        {/* <AiOutlineShoppingCart className="header--cart"/>
+                        <span className="header--cart__count">0</span> */}
+                        <Cart />
                     </Link>
                 </Col>
                 <Col xs="2" className="header--user">
@@ -46,7 +48,7 @@ const Header = () => {
                     </List>
                 </Col>
             </Row>
-        </>
+        
     )
 
 

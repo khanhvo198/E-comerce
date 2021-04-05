@@ -39,12 +39,6 @@
 
 
 
-.header--cart {
-    display: flex;
-    align-self: center;
-    font-size: 40px;
-    margin-left: 40px;
-}
 
 /* .header--search__bar > input {
     max-width: 500px;
