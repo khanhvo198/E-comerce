@@ -13,7 +13,7 @@ const Cart = () => {
             <AiOutlineShoppingCart className="header--cart" />
             <span className="header--cart__count">{cart.length}</span>
         </div>
-        
+
 
     )
 

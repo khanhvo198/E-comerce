@@ -13,11 +13,18 @@ const ProductDetail = () => {
 
     const exampleInfo = {
         id: match.params.id,
-        price: 29.99,
+        title: 'MacBook Pro 13-inch',
         rating: 5,
+        numComments: 15,
+        numItemsSold: 100,
+        price: 100,
+        img: Images.MAC_BOOK_PRO,
+        description: 'Macbook sieu ben sieu dep Macbook sieu ben sieu dep'.repeat(10),
     }
 
     const [productInfo, setProductInfo] = useState(exampleInfo)
+
+    const [quantity, setQuantity] = useState(1)
 
     useEffect(() => {
 
@@ -26,33 +33,11 @@ const ProductDetail = () => {
     })
 
 
-    const dispatch = useDispatch()
-
-
-    const handleOnClick = () => {
-        const action = addProduct(productInfo);
-        // console.log({action})
-        dispatch(action)
-    }
-
-
-
     return (
         <div>
             <ProductCard
-                title={'MacBook Pro 13-inch'}
-                numStars={5}
-                numComments={15}
-                numItemsSold={100}
-                price={100}
-                img={Images.MAC_BOOK_PRO}
-                description={'Macbook sieu ben sieu dep Macbook sieu ben sieu dep'.repeat(10)}
+                {...productInfo}
             />
-            <Button color="primary"
-                onClick={handleOnClick}
-            >
-                Add to cart
-            </Button>
         </div>
     )
 

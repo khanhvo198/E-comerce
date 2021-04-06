@@ -1,18 +1,22 @@
+import { useSelector } from "react-redux"
 
 
 
 const Checkout = () => {
+
+    const cart = useSelector(state => state.cart)
+
     return (
         <p>
-            This is checkout page
+            {console.log(cart)}
         </p>
 
 
 
     )
 
-   
-    
+
+
 }
 
 
