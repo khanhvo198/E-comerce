@@ -30,7 +30,6 @@ function ProductCard(props) {
         const action = addProduct({ ...props, quantity });
         // console.log({action})
         dispatch(action)
-        localStorage.setItem('added', true)
     }
 
     const handleOnIncrease = () => {
@@ -76,14 +75,13 @@ function ProductCard(props) {
                         </div>
                         <Button color="primary"
                             onClick={handleOnAddToCart}
-                            disabled={localStorage.getItem('added')}
                         >
                             Add to cart
                         </Button>
                     </Col>
                 </Row>
             </Container>
-        </div>
+        </div >
     );
 }
 

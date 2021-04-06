@@ -7,14 +7,20 @@ const CartSlice = createSlice({
     initialState: [],
     reducers: {
         addProduct: (state, action) => {
-            state.push(action.payload)
+            const item = action.payload
+            const index = state.findIndex(element => item.id === element.id)
+            if (index >= 0) {
+                state[index].quantity += item.quantity
+            } else {
+                state.push(item)
+            }
         }
     }
 })
 
 
-const {reducer, actions} = CartSlice
+const { reducer, actions } = CartSlice
 
-export const {addProduct} = actions
+export const { addProduct } = actions
 
 export default reducer
