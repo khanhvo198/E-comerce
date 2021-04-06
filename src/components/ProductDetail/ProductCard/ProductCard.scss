@@ -1,7 +1,7 @@
 @import "node_modules/bootstrap/scss/bootstrap";
 
 .productcard {
-    @extend .my-5;
+    @extend .my-4;
     &__img {
         @extend .px-2, .mb-3;
         img {
@@ -28,19 +28,18 @@
             color: red;
         }
 
-        &__description {
-            &--header {
+        &__specification {
+            text-align: left;
+            &--key {
+                @extend .px-2;
                 font-weight: 700;
                 font-size: 1em;
                 margin-right: 2em;
             }
-            &--text {
-                text-align: left;
-            }
         }
 
         &__quantity {
-            @extend .d-flex, .align-items-center, .my-2;
+            @extend .d-flex, .align-items-center, .my-2, .px-2;
             div {
                 font-weight: 700;
                 font-size: 1em;
