@@ -1,9 +1,10 @@
+import Images from "constants/images"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useRouteMatch } from "react-router"
-import { Button } from "reactstrap"
+import { Button, Card, Col, Container, Row } from "reactstrap"
 import { addProduct } from "../../feature/Cart/CartSlice"
-
+import ProductCard from "./ProductCard/ProductCard"
 
 
 const ProductDetail = () => {
@@ -37,14 +38,22 @@ const ProductDetail = () => {
 
 
     return (
-        <>
-            <p>This is detail of {match.params.id} </p>
+        <div>
+            <ProductCard
+                title={'MacBook Pro 13-inch'}
+                numStars={5}
+                numComments={15}
+                numItemsSold={100}
+                price={100}
+                img={Images.MAC_BOOK_PRO}
+                description={'Macbook sieu ben sieu dep Macbook sieu ben sieu dep'.repeat(10)}
+            />
             <Button color="primary"
-            onClick={handleOnClick}
+                onClick={handleOnClick}
             >
                 Add to cart
             </Button>
-        </>
+        </div>
     )
 
 
