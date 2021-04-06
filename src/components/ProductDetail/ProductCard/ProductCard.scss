@@ -1,9 +1,58 @@
-.price {
-    font-size: 3em;
-    color: red;
-}
+@import "node_modules/bootstrap/scss/bootstrap";
 
-.quantity {
-    font-weight: 700;
-    margin-right: 2em;
+.productcard {
+    @extend .my-5;
+    &__img {
+        @extend .px-2, .mb-3;
+        img {
+            @extend .img-fluid;
+        }
+    }
+
+    &__info {
+        @extend .d-flex, .flex-column, .align-items-start;
+        &__statistic {
+            @extend .d-flex, .justify-content-start;
+        }
+        &__rating {
+            @extend .mx-2, .d-flex;
+        }
+
+        &__comment,
+        &__itemsold {
+            @extend .mx-2;
+        }
+
+        &__price {
+            font-size: 3em;
+            color: red;
+        }
+
+        &__description {
+            &--header {
+                font-weight: 700;
+                font-size: 1em;
+                margin-right: 2em;
+            }
+            &--text {
+                text-align: left;
+            }
+        }
+
+        &__quantity {
+            @extend .d-flex, .align-items-center, .my-2;
+            div {
+                font-weight: 700;
+                font-size: 1em;
+                margin-right: 2em;
+            }
+        }
+
+        &__addtocart {
+            @extend .align-self-center, .my-3;
+            width: 10em;
+            height: 4em;
+            text-align: center;
+        }
+    }
 }
