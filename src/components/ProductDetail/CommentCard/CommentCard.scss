@@ -1,0 +1,9 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.comment-card {
+    @extend .d-flex, .my-4;
+
+    &__avatar-wrapper {
+        @extend .mr-3;
+    }
+}

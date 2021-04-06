@@ -8,6 +8,7 @@ import QuantityAdder from '../QuantityAdder/QuantityAdder';
 import { addProduct } from "feature/Cart/CartSlice"
 import { useRouteMatch } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import Rating from 'feature/Rating/Rating';
 
 // ProductCard.propTypes = {
 //     id: PropTypes.number.isRequired,
@@ -61,9 +62,7 @@ function ProductCard(props) {
                         <div className='productcard__info__statistic'>
                             <div className='productcard__info__rating'>
                                 <div>{rating}</div>
-                                {[...Array(5)].map(() => (
-                                    <div><AiFillStar color='red' /></div>
-                                ))}
+                                <Rating rating={rating} />
                             </div>
                             <div>|</div>
                             <div className='productcard__info__comment'>{numComments} comments</div>

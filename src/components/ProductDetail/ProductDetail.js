@@ -6,6 +6,7 @@ import { Button, Card, Col, Container, Row } from "reactstrap"
 import { addProduct } from "../../feature/Cart/CartSlice"
 import ProductCard from "./ProductCard/ProductCard"
 import "components/ProductDetail/ProductDetail.scss";
+import CommentCard from "./CommentCard/CommentCard"
 
 
 const ProductDetail = () => {
@@ -15,7 +16,7 @@ const ProductDetail = () => {
     const exampleInfo = {
         id: match.params.id,
         title: 'MacBook Pro 13-inch',
-        rating: 5,
+        rating: 3,
         numComments: 15,
         numItemsSold: 100,
         price: 100,
@@ -43,7 +44,23 @@ const ProductDetail = () => {
 
     const [productInfo, setProductInfo] = useState(exampleInfo)
 
-    const [quantity, setQuantity] = useState(1)
+    const commentList = [
+        {
+            username: 'Nohara Shinnosuke',
+            rating: 4,
+            avatar: Images.SHIN_AVATAR,
+            comment: 'I’m so glad I didn’t listen to some of the negative reviews cuz this laptop is amazing. It has surpassed my expectations. I bought this during prime day and my daughter said aren’t you scared that the computer will not be any good I said no cuz of the return policy but I am not returning it I love it. I love it so much I gave him a name! ',
+            imageList: [],
+        },
+
+        {
+            username: 'Kazama Tooru',
+            rating: 5,
+            avatar: Images.KAZAMA_AVATAR,
+            comment: "This is my second Chromebook. My last was a similar 14inch HP. I did not know that all my tabs data and settings and I think even passwords and such from mu last one were just there .Being an older user and not too IT savvy this was important to me. I'll never get another PC.Only possible negative - I don't think the battery lasts quite as long as my last one. I never recommend any products to friends but I would recommend this. ",
+            imageList: [],
+        }
+    ]
 
     useEffect(() => {
 
@@ -53,24 +70,36 @@ const ProductDetail = () => {
 
 
     return (
-        <Container>
-            <ProductCard
-                {...productInfo}
-            />
+        <div className='container-fluid' style={{ backgroundColor: '#f5f5f5' }}>
+            <Container>
+                <ProductCard
+                    {...productInfo}
+                />
 
-            <div className='detail'>
-                <div className='detail__header'>Details</div>
-                <ul>
-                    {productInfo.details.map((element, index) => (
-                        <li>{element}</li>
+                <div className='detail'>
+                    <div className='detail__header'>Details</div>
+                    <ul>
+                        {productInfo.details.map((element, index) => (
+                            <li>{element}</li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div className='comment'>
+                    <div className='comment__header'>Comments</div>
+                    {commentList.map((commentInfo, index) => (
+                        <div>
+                            <hr />
+                            <CommentCard
+                                {...commentInfo}
+                            />
+                        </div>
+
                     ))}
-                </ul>
-            </div>
 
-            <div className='comment'>
-                <div className='comment__header'>Comments</div>
-            </div>
-        </Container>
+                </div>
+            </Container>
+        </div>
     )
 
 
