@@ -9,19 +9,19 @@ import { addProduct } from "feature/Cart/CartSlice"
 import { useRouteMatch } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
-ProductCard.propTypes = {
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    numComments: PropTypes.number.isRequired,
-    numItemsSold: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
-};
+// ProductCard.propTypes = {
+//     id: PropTypes.number.isRequired,
+//     title: PropTypes.string.isRequired,
+//     rating: PropTypes.number.isRequired,
+//     numComments: PropTypes.number.isRequired,
+//     numItemsSold: PropTypes.number.isRequired,
+//     price: PropTypes.number.isRequired,
+//     description: PropTypes.string.isRequired,
+//     img: PropTypes.string.isRequired,
+// };
 
 function ProductCard(props) {
-    const { title, rating, numComments, numItemsSold, price, description, img } = props
+    const { title, rating, numComments, numItemsSold, price, img, specification } = props
     const [quantity, setQuantity] = useState(1);
     const cart = useSelector(state => state.cart)
     const dispatch = useDispatch();
@@ -38,6 +38,10 @@ function ProductCard(props) {
 
     const handleOnDecrease = () => {
         setQuantity(quantity - 1)
+    }
+
+    const capitalize = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1)
     }
 
     return (
@@ -66,9 +70,15 @@ function ProductCard(props) {
                             <div>|</div>
                             <div className='productcard__info__itemsold'>{numItemsSold} items sold</div>
                         </div>
-                        <h3 className='productcard__info__price'>{price}$</h3>
-                        <h2 className='productcard__info__description--header'>Description:</h2>
-                        <div className='productcard__info__description--text'>{description}</div>
+                        <div className='productcard__info__price'>{price}$</div>
+                        <Container className='productcard__info__specification'>
+                            {Object.keys(specification).map((key, index) => (
+                                <Row>
+                                    <Col lg='4' className='productcard__info__specification--key'>{capitalize(key)}</Col>
+                                    <Col lg='7' className='productcard__info__specification--value'>{specification[key]}</Col>
+                                </Row>
+                            ))}
+                        </Container>
                         <div className='productcard__info__quantity'>
                             <div>Quantity:</div>
                             <QuantityAdder quantity={quantity} maxItems={5} onIncrease={handleOnIncrease} onDecrease={handleOnDecrease} />
