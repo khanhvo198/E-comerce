@@ -18,23 +18,20 @@ function CommentImageBlock(props) {
     const next = () => {
         if (animating) return;
         const nextIndex = activeIndex === imageList.length - 1 ? 0 : activeIndex + 1
+        indexChangeAnimation(nextIndex)
         setActiveIndex(nextIndex)
     }
 
     const previous = () => {
         if (animating) return;
         const previousIndex = activeIndex === 0 ? imageList.length - 1 : activeIndex - 1
+        indexChangeAnimation(previousIndex)
         setActiveIndex(previousIndex)
     }
 
     const goToIndex = (newIndex) => {
         if (animating) return;
-        $('.image-list div').css('border', 'none')
-        $(`#image-list-${newIndex}`).css('border', '1px solid red')
-        const isVisible = $('.carousel').is(':visible')
-        if ((newIndex === activeIndex) || (newIndex != activeIndex && !isVisible)) {
-            $('.carousel').toggle()
-        }
+        indexChangeAnimation(newIndex)
         setActiveIndex(newIndex)
     }
 
@@ -53,8 +50,17 @@ function CommentImageBlock(props) {
 
     })
 
-    const handleImageClick = (index) => {
-        goToIndex(index)
+    const indexChangeAnimation = (newIndex) => {
+        if (animating) return;
+        $('.image-list div').css('border', 'none')
+        const isVisible = $('.carousel').is(':visible')
+        if ((newIndex === activeIndex && !isVisible) || (newIndex != activeIndex)) {
+            $('.carousel').show()
+            $(`#image-list-${newIndex}`).css('border', '1px solid red')
+        }
+        if (newIndex === activeIndex && isVisible) {
+            $('.carousel').hide()
+        }
     }
 
 
@@ -62,7 +68,7 @@ function CommentImageBlock(props) {
         <div>
             <div className='image-list'>
                 {imageList.map((src, index) => (
-                    <div key={index} id={`image-list-${index}`}><img src={src} onClick={() => handleImageClick(index)} /></div>
+                    <div key={index} id={`image-list-${index}`}><img src={src} onClick={() => goToIndex(index)} /></div>
                 ))}
             </div>
             <Carousel
