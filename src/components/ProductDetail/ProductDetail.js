@@ -50,7 +50,7 @@ const ProductDetail = () => {
             rating: 4,
             avatar: Images.SHIN_AVATAR,
             comment: 'I’m so glad I didn’t listen to some of the negative reviews cuz this laptop is amazing. It has surpassed my expectations. I bought this during prime day and my daughter said aren’t you scared that the computer will not be any good I said no cuz of the return policy but I am not returning it I love it. I love it so much I gave him a name! ',
-            imageList: [],
+            imageList: [Images.MAC_BOOK_COMMENT_1, Images.MAC_BOOK_COMMENT_2, Images.MAC_BOOK_COMMENT_3, Images.MAC_BOOK_COMMENT_4],
         },
 
         {

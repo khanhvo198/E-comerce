@@ -1,0 +1,12 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.custom-tag {
+    max-width: 100%;
+    height: 390px;
+}
+
+.slider {
+    &__image {
+        height: 100%;
+    }
+}

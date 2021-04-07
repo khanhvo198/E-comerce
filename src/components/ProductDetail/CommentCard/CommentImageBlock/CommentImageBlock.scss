@@ -1,0 +1,43 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.custom-tag {
+    max-width: 100%;
+    height: 300px;
+}
+
+.image-list {
+    @extend .d-flex, .flex-wrap, .mt-2;
+
+    $img-size: 80px;
+    $hover-cursor: zoom-out;
+    div {
+        @extend .mr-2, .my-2;
+        height: $img-size;
+        width: $img-size;
+        img {
+            @extend .img-fluid;
+            width: 100%;
+            height: 100%;
+
+            &:hover {
+                @if $hover-cursor == zoom-out {
+                    $hover-cursor: zoom-in;
+                } @else {
+                    $hover-cursor: zoom-out;
+                }
+                // height: auto;
+                // width: auto;
+
+                cursor: $hover-cursor;
+            }
+        }
+    }
+}
+
+.image-slide {
+    height: 100%;
+}
+
+.carousel {
+    display: none;
+}
