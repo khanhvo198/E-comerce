@@ -1,0 +1,28 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.rating-block {
+    @extend .my-3;
+    width: 500px;
+
+    &__average {
+        @extend .d-flex, .mx-2, .my-2, .align-items-center;
+        .rating {
+            @extend .mr-2;
+        }
+
+        &__number {
+            font-size: 1.5em;
+        }
+    }
+
+    &__detail {
+        @extend .px-0, .mx-2;
+        .progress-bar {
+            background-color: red;
+        }
+
+        .row {
+            @extend .align-items-center;
+        }
+    }
+}
