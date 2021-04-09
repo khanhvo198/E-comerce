@@ -5,7 +5,7 @@ import macbookComment1 from 'assets/images/macbook_comment_1.jpeg';
 import macbookComment2 from 'assets/images/macbook_comment_2.jpeg';
 import macbookComment3 from 'assets/images/macbook_comment_3.jpg';
 import macbookComment4 from 'assets/images/macbook_comment_4.jpg';
-
+import macbook_thumbnail from 'assets/images/thumbnail.jpeg'
 const Images = {
     MAC_BOOK_PRO: macbookPro,
     SHIN_AVATAR: shinAvatar,
@@ -14,6 +14,7 @@ const Images = {
     MAC_BOOK_COMMENT_2: macbookComment2,
     MAC_BOOK_COMMENT_3: macbookComment3,
     MAC_BOOK_COMMENT_4: macbookComment4,
+    THUMBNAIL:macbook_thumbnail,
 }
 
 export default Images;

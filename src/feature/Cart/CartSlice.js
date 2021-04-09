@@ -16,7 +16,7 @@ const CartSlice = createSlice({
             localStorage.setItem("cartInfo", JSON.stringify(state))
         },
 
-        setQuantity: (state,action) => {
+        setQuantityInCart: (state,action) => {
 
             const id = action.payload.id
             const quantity = action.payload.quantity
@@ -32,6 +32,6 @@ const CartSlice = createSlice({
 
 const { reducer, actions } = CartSlice
 
-export const { addProduct, setQuantity } = actions
+export const { addProduct, setQuantityInCart } = actions
 
 export default reducer

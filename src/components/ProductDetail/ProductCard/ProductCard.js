@@ -5,7 +5,7 @@ import Images from 'constants/images';
 import { AiFillStar } from "react-icons/ai";
 import './ProductCard.scss';
 import QuantityAdder from '../QuantityAdder/QuantityAdder';
-import { addProduct } from "feature/Cart/CartSlice"
+import { addProduct, setQuantityInCart } from "feature/Cart/CartSlice"
 import { useRouteMatch } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import Rating from 'feature/Rating/Rating';
@@ -27,9 +27,27 @@ function ProductCard(props) {
     const cart = useSelector(state => state.cart)
     const dispatch = useDispatch();
 
+    const getIndex = (id, cart) => {
+        for(let i = 0; i < cart.length; i++) {
+            if(id === cart[i].id ) {
+                return i
+            }
+        }
+        return -1
+    }
+
+
     const handleOnAddToCart = () => {
         const action = addProduct({ ...props, quantity });
-        // console.log({action})
+        const index = getIndex(props.id, cart)
+        const isAdd = index === -1 ? false  : true
+
+        if(isAdd) {
+            const action = setQuantityInCart({id: props.id, quantity: quantity + cart[index].quantity })
+            dispatch(action)
+            return
+        }
+
         dispatch(action)
     }
 

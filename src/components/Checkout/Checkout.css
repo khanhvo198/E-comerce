@@ -1,0 +1,50 @@
+/* 
+.item__image {
+    margin: 0;
+}
+
+
+.item__detail {
+    margin: 0;
+} */
+
+.item__detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+
+.item__top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.item__quantity {
+    text-align: left;
+}
+
+.item__delete {
+    display: flex;
+}
+
+.button__delete {
+    padding:0 !important;
+    color: #00A8E8 !important;
+}
+
+
+.item {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.item:first-child {
+    padding-top: 40px;
+}
+
+
+
+
+
+
