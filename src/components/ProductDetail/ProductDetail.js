@@ -7,6 +7,7 @@ import { addProduct } from "../../feature/Cart/CartSlice"
 import ProductCard from "./ProductCard/ProductCard"
 import "components/ProductDetail/ProductDetail.scss";
 import CommentCard from "./CommentCard/CommentCard"
+import RatingBlock from "./RatingBlock/RatingBlock"
 
 
 const ProductDetail = () => {
@@ -62,6 +63,8 @@ const ProductDetail = () => {
         }
     ]
 
+    const exampleRatingList = [5, 7, 2, 0, 2]
+
     useEffect(() => {
 
         // do something to get Product Information
@@ -87,6 +90,7 @@ const ProductDetail = () => {
 
                 <div className='comment'>
                     <div className='comment__header'>Comments</div>
+                    <RatingBlock ratingList={exampleRatingList} />
                     {commentList.map((commentInfo, index) => (
                         <div>
                             <hr />

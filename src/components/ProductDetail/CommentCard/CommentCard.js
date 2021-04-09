@@ -24,7 +24,8 @@ function CommentCard(props) {
     }
 
     return (
-        <Container className='comment-card'>
+        // id MUST be comment-card for correct linking from ProductCard
+        <Container id='comment-card' className='comment-card'>
             <div className='comment-card__avatar-wrapper'>
                 <Avatar round={true} size={50} src={avatar} />
             </div>

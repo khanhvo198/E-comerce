@@ -60,14 +60,16 @@ function ProductCard(props) {
                     <Col className='productcard__info' lg='6'>
                         <h1>{title}</h1>
                         <div className='productcard__info__statistic'>
-                            <div className='productcard__info__rating'>
-                                <div>{rating}</div>
+                            {/* href MUST be #comment-card for correct linking to CommentCard */}
+                            <a href='#comment-card' className='productcard__info__rating'>
+                                <div className='productcard__info__statistic__number'>{rating}</div>
                                 <Rating rating={rating} />
-                            </div>
+                            </a>
                             <div>|</div>
-                            <div className='productcard__info__comment'>{numComments} comments</div>
+                            {/* href MUST be #comment-card for correct linking to CommentCard */}
+                            <a href='#comment-card' className='productcard__info__comment'><span className='productcard__info__statistic__number'>{numComments}</span><span>comments</span></a>
                             <div>|</div>
-                            <div className='productcard__info__itemsold'>{numItemsSold} items sold</div>
+                            <div className='productcard__info__itemsold'><span className='productcard__info__statistic__number'>{numItemsSold}</span><span>items sold</span></div>
                         </div>
                         <div className='productcard__info__price'>{price}$</div>
                         <Container className='productcard__info__specification'>
