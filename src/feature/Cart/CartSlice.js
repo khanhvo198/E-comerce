@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
+const getIndex = (state, id) => {
+    for(let i = 0; i < state.length; i++) {
+        if(state[i].id === id) return i
+    }
+}
 
 const CartSlice = createSlice({
     name: 'cart',
@@ -9,6 +14,17 @@ const CartSlice = createSlice({
         addProduct: (state, action) => {
             state.push(action.payload)
             localStorage.setItem("cartInfo", JSON.stringify(state))
+        },
+
+        setQuantity: (state,action) => {
+
+            const id = action.payload.id
+            const quantity = action.payload.quantity
+            const index = getIndex(state,id)
+            state[index].quantity = quantity
+            localStorage.setItem("cartInfo", JSON.stringify(state))
+
+
         }
     }
 })
@@ -16,6 +32,6 @@ const CartSlice = createSlice({
 
 const { reducer, actions } = CartSlice
 
-export const { addProduct } = actions
+export const { addProduct, setQuantity } = actions
 
 export default reducer
