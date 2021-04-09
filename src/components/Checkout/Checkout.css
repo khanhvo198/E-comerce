@@ -45,6 +45,64 @@
 
 
 
+.subtotal {
+    display: flex;
+    justify-content: space-between;
+}
+
+.shipping {
+    display: flex;
+    justify-content: space-between;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+}
+
+.voucher {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.8rem;
+}
+
+
+.checkout {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.checkout > .checkout__button {
+    background-color: #42F2CB;
+    color: #000;
+    border: none;
+    height: 48px;
+    border-radius: 10px;
+}
+
+.checkout > .checkout__pay {
+    background-color: #fff;
+    color: #000;
+    border-radius: 10px;
+    margin-top: 20px;
+    height: 48px;
+}
+
+
+
+.fixed {
+    position: fixed;
+    width: 300px;
+}
+
+.review {
+    min-height: 90vh;
+}
+
+
+
+
 
 
 

@@ -205,15 +205,15 @@ const Home = () => {
 
     return (
         <Container className="home">
-            <div className="home__banner">
-                <div className="home__banner--left">
+            <Row className="home__banner">
+                <Col xs='8' className="home__banner--left pl-0 pr-0 pb-1" >
                     <Slider />
-                </div>
-                <div className="home__banner--right">
+                </Col>
+                <Col xs='4' className="home__banner--right pl-0 pr-0">
                     <img alt="banner_image" src="https://www.anphatpc.com.vn/media/news/0812_wp4676574-4k-pc-wallpapers.jpg" />
                     <img alt="banner_image" src="https://www.anphatpc.com.vn/media/news/0812_wp4676574-4k-pc-wallpapers.jpg" />
-                </div>
-            </div>
+                </Col>
+            </Row>
             <div className="home__filter">
                 Some FUNCTION to sort product, Sort by Price (Low to High and vise versa), by Rating ...
                 </div>

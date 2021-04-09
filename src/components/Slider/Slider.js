@@ -1,3 +1,4 @@
+import Images from 'constants/images';
 import { useState } from 'react'
 import { CarouselCaption, CarouselItem, Carousel, CarouselIndicators, CarouselControl } from 'reactstrap';
 
@@ -50,7 +51,7 @@ const Slider = () => {
                 onExiting={() => setAnimating(true)}
                 onExited={() => setAnimating(false)}
             >
-                <img className="slider__image" alt="This is example slider" src="https://www.anphatpc.com.vn/media/news/0812_wp4676574-4k-pc-wallpapers.jpg" />
+                <img className="slider__image" alt="This is example slider" src={Images.SLIDER} />
 
                 <CarouselCaption captionText={item.caption} />
             </CarouselItem>
@@ -70,6 +71,7 @@ const Slider = () => {
                     }
                     .slider__image {
                         height: 100%;
+                        max-width:100%;
                     }
                     `
                 }
