@@ -8,5 +8,16 @@
     align-self: center;
     font-size: 40px;
     margin-left: 40px;
+
 }
 
+
+.header--cart__count {
+    /* height: 40%; */
+    /* width: 40%; */
+    border-radius: 50%;
+    border: 1px solid #fff;
+    width: 25px;
+    height: 25px;
+    background-color:#fff;
+}
