@@ -44,7 +44,7 @@ function CommentImageBlock(props) {
                 onExiting={() => setAnimating(true)}
                 onExited={() => setAnimating(false)}
             >
-                <img className="image-slide" src={src} />
+                <img className="image-slider__image" src={src} />
             </CarouselItem>
         )
 
@@ -53,13 +53,13 @@ function CommentImageBlock(props) {
     const indexChangeAnimation = (newIndex) => {
         if (animating) return;
         $('.image-list div').css('border', 'none')
-        const isVisible = $('.carousel').is(':visible')
+        const isVisible = $('.image-slider').is(':visible')
         if ((newIndex === activeIndex && !isVisible) || (newIndex != activeIndex)) {
-            $('.carousel').show()
+            $('.image-slider').show()
             $(`#image-list-${newIndex}`).css('border', '1px solid red')
         }
         if (newIndex === activeIndex && isVisible) {
-            $('.carousel').hide()
+            $('.image-slider').hide()
         }
     }
 
@@ -76,7 +76,7 @@ function CommentImageBlock(props) {
                 next={next}
                 previous={previous}
                 interval={interval}
-                className='carousel'
+                className='image-slider'
             >
                 <CarouselIndicators items={imageList} activeIndex={activeIndex} onClickHandler={goToIndex} />
                 {slides}

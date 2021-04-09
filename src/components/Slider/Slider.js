@@ -1,34 +1,26 @@
 import { useState } from 'react'
 import { CarouselCaption, CarouselItem, Carousel, CarouselIndicators, CarouselControl } from 'reactstrap';
-import 'components/Slider/Slider.scss';
 
+const items = [
+    {
+        id: 1,
+        altText: 'Slide 1',
+        caption: 'Slide 1'
+    },
+    {
+        id: 2,
+        altText: 'Slide 2',
+        caption: 'Slide 2'
+    },
+    {
+        id: 3,
+        altText: 'Slide 3',
+        caption: 'Slide 3'
+    }
+];
 
-Slider.defaultProps = {
-    items: [
-        {
-            id: 1,
-            altText: 'Slide 1',
-            caption: 'Slide 1',
-            src: "https://www.anphatpc.com.vn/media/news/0812_wp4676574-4k-pc-wallpapers.jpg",
-        },
-        {
-            id: 2,
-            altText: 'Slide 2',
-            caption: 'Slide 2',
-            src: "https://www.anphatpc.com.vn/media/news/0812_wp4676574-4k-pc-wallpapers.jpg",
-        },
-        {
-            id: 3,
-            altText: 'Slide 3',
-            caption: 'Slide 3',
-            src: "https://www.anphatpc.com.vn/media/news/0812_wp4676574-4k-pc-wallpapers.jpg",
-        }
-    ],
-    interval: 1000,
-}
+const Slider = () => {
 
-function Slider(props) {
-    const { items, interval } = props;
     const [activeIndex, setActiveIndex] = useState(0)
     const [animating, setAnimating] = useState(false)
 
@@ -58,7 +50,7 @@ function Slider(props) {
                 onExiting={() => setAnimating(true)}
                 onExited={() => setAnimating(false)}
             >
-                <img className="slider__image" alt={item.altText} src={item.src} />
+                <img className="slider__image" alt="This is example slider" src="https://www.anphatpc.com.vn/media/news/0812_wp4676574-4k-pc-wallpapers.jpg" />
 
                 <CarouselCaption captionText={item.caption} />
             </CarouselItem>
@@ -68,13 +60,26 @@ function Slider(props) {
 
 
     return (
+        // <h1>Slider</h1>
         <div className="slider">
+            <style>
+                {
+                    `.custom-tag {
+                    max-width: 100%;
+                    height: 390px;
+                    }
+                    .slider__image {
+                        height: 100%;
+                    }
+                    `
+                }
+            </style>
             <Carousel
                 activeIndex={activeIndex}
                 next={next}
                 previous={previous}
-                interval={interval}
             >
+
                 <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
                 {slides}
                 <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
@@ -87,3 +92,5 @@ function Slider(props) {
 }
 
 export default Slider
+
+

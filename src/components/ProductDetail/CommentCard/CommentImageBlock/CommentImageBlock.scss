@@ -34,10 +34,10 @@
     }
 }
 
-.image-slide {
-    height: 100%;
-}
-
-.carousel {
+.image-slider {
     display: none;
+
+    &__image {
+        height: 100%;
+    }
 }
