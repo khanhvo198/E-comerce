@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
 import {
     Collapse,
-    Navbar,
-    NavbarToggler,
+    Nav, Navbar,
     NavbarBrand,
-    Nav,
+    NavbarText, NavbarToggler,
     NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    NavbarText
+    NavLink
 } from 'reactstrap';
 
 const Category = (props) => {

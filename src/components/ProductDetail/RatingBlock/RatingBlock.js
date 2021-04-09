@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import Rating from 'feature/Rating/Rating';
-import { Container, Col, Row, Progress } from 'reactstrap';
 import 'components/ProductDetail/RatingBlock/RatingBlock.scss';
+import Rating from 'feature/Rating/Rating';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Col, Container, Progress, Row } from 'reactstrap';
 
 RatingBlock.propTypes = {
     ratingList: PropTypes.array.isRequired,

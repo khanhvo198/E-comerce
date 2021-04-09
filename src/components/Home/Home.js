@@ -1,13 +1,11 @@
+import Slider from "components/Slider/Slider";
 import { useEffect, useState } from "react";
-import { Container, Row, Col } from "reactstrap";
+import { Link } from "react-router-dom";
+import { Col, Container, Row } from "reactstrap";
+import Category from "../Category/Category";
+import PaginationProduct from "../Pagination/PaginationProduct";
 import Product from "../Product/Product";
 import "./Home.css";
-import PaginationProduct from "../Pagination/PaginationProduct";
-import { Link } from "react-router-dom";
-import Category from "../Category/Category";
-import Slider from "components/Slider/Slider";
-import CommentImageBlock from "components/ProductDetail/CommentCard/CommentImageBlock/CommentImageBlock";
-import Images from "constants/images";
 const Home = () => {
 
 

@@ -2,7 +2,7 @@ import QuantityAdder from "components/ProductDetail/QuantityAdder/QuantityAdder"
 import Images from "constants/images";
 import { useDispatch, useSelector } from "react-redux"
 import { Container, Row, Col, Button } from "reactstrap"
-import {setQuantityInCart} from '../../feature/Cart/CartSlice'
+import {setQuantityInCart,removeProduct} from '../../feature/Cart/CartSlice'
 
 import './Checkout.css'
 const Checkout = () => {
@@ -21,8 +21,17 @@ const Checkout = () => {
     }
 
 
-    const handleOnDecrease = (id) => {
+    const handleOnDecrease = (id, quantity) => {
+        const action = setQuantityInCart({id, quantity: quantity - 1})
+        dispatch(action)
+    }
 
+
+    const handleOnDelete = (id) => {
+        const action = removeProduct({id})
+        console.log(action)
+        dispatch(action)
+        
     }
 
 
@@ -37,11 +46,11 @@ const Checkout = () => {
                 <h1 className="checkout__title">Review Your Bag</h1>
                 <Col xs="9" >
                     {cart.map((item) => (
-                        <div>
+                        <div key={item.id}>
                             <hr />
                             <Row className="item">
                                 <Col xs="4" className="item__image">
-                                    <img src={Images.THUMBNAIL} className="w-100" />
+                                    <img src={Images.THUMBNAIL} className="w-100" alt="This is an product" />
                                 </Col>
                                 <Col xs="8" className="item__detail">
                                     <div className="item__top">
@@ -49,7 +58,7 @@ const Checkout = () => {
                                             {item.title}
                                         </div>
                                         <div className="item__price">
-                                            {item.price } 
+                                            {item.price}
                                         </div>
                                     </div>
 
@@ -58,11 +67,16 @@ const Checkout = () => {
                                             quantity={item.quantity}
                                             maxItems={5}
                                             onIncrease={() => handleOnIncrease(item.id, item.quantity)}
-                                            onDecrease={handleOnDecrease}
+                                            onDecrease={() => handleOnDecrease(item.id, item.quantity)}
                                         />
                                     </div>
                                     <div className="item__delete">
-                                        <Button className="button__delete" color="none">Remove</Button>
+                                        <Button className="button__delete" 
+                                            color="none"
+                                            onClick={() => handleOnDelete(item.id)}
+                                        >
+                                            Remove
+                                        </Button>
                                     </div>
                                 </Col>
                             </Row>

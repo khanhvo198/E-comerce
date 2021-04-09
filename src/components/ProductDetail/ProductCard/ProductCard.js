@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { Card, CardBody, CardTitle, Row, Col, Container, Button } from 'reactstrap';
-import Images from 'constants/images';
-import { AiFillStar } from "react-icons/ai";
-import './ProductCard.scss';
-import QuantityAdder from '../QuantityAdder/QuantityAdder';
-import { addProduct, setQuantityInCart } from "feature/Cart/CartSlice"
-import { useRouteMatch } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { addProduct, setQuantityInCart } from "feature/Cart/CartSlice";
 import Rating from 'feature/Rating/Rating';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Col, Container, Row } from 'reactstrap';
+import QuantityAdder from '../QuantityAdder/QuantityAdder';
+import './ProductCard.scss';
 
 // ProductCard.propTypes = {
 //     id: PropTypes.number.isRequired,

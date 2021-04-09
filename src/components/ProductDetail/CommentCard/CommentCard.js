@@ -1,12 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Col, Container, Row } from 'reactstrap';
-import Images from 'constants/images';
-import Avatar from 'react-avatar';
 import 'components/ProductDetail/CommentCard/CommentCard.scss';
 import Rating from 'feature/Rating/Rating';
+import React from 'react';
+import Avatar from 'react-avatar';
+import { Container } from 'reactstrap';
 import CommentImageBlock from './CommentImageBlock/CommentImageBlock';
-import Slider from 'components/Slider/Slider';
 
 CommentCard.propTypes = {
 

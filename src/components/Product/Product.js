@@ -1,5 +1,5 @@
-import { Card, CardBody, CardImg, CardTitle, CardText, Col } from "reactstrap"
 import { BsStarFill } from 'react-icons/bs'
+import { Card, CardBody, CardImg, CardText, CardTitle } from "reactstrap"
 import "./Product.css"
 
 const Product = ({ image, title, price, rating }) => {

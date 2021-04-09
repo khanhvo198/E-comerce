@@ -1,8 +1,7 @@
-import { useState } from 'react'
-import { CarouselCaption, CarouselItem, Carousel, CarouselIndicators, CarouselControl } from 'reactstrap';
 import 'components/ProductDetail/CommentCard/CommentImageBlock/CommentImageBlock.scss';
 import $ from 'jquery';
-import reducer from 'feature/Cart/CartSlice';
+import { useState } from 'react';
+import { Carousel, CarouselControl, CarouselIndicators, CarouselItem } from 'reactstrap';
 
 
 CommentImageBlock.defaultProps = {

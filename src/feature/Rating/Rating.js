@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 Rating.propTypes = {

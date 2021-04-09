@@ -1,9 +1,9 @@
-import {  Col, Input, List, Row, InputGroup, InputGroupAddon, Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from "reactstrap"
-import { Link } from 'react-router-dom'
-import {AiOutlineShoppingCart, AiOutlineSearch} from 'react-icons/ai'
-import "./Header.css"
 import { useState } from "react"
+import { AiOutlineSearch } from 'react-icons/ai'
+import { Link } from 'react-router-dom'
+import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Input, InputGroup, InputGroupAddon, List, Row } from "reactstrap"
 import Cart from "../../feature/Cart/Cart"
+import "./Header.css"
 
 
 
