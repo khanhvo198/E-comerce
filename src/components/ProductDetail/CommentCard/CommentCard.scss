@@ -6,4 +6,34 @@
     &__avatar-wrapper {
         @extend .mr-3;
     }
+
+    // &__image-block {
+    //     @extend .d-flex, .mt-2;
+
+    //     $img-size: 80px;
+    //     $hover-cursor: zoom-out;
+    //     img {
+    //         @extend .mr-2, .img-fluid;
+    //         height: $img-size;
+    //         width: $img-size;
+
+    //         &:hover {
+    //             @if $hover-cursor == zoom-out {
+    //                 $hover-cursor: zoom-in;
+    //             } @else {
+    //                 $hover-cursor: zoom-out;
+    //             }
+    //             // height: auto;
+    //             // width: auto;
+
+    //             cursor: $hover-cursor;
+    //         }
+    //     }
+    // }
+
+    &__image-block {
+        @extend .d-flex, .justify-content-start;
+        // max-width: 25vw;
+        // height: auto;
+    }
 }
