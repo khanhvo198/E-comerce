@@ -1,0 +1,22 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.profile {
+    @extend .container, .mx-0;
+    &__detail {
+        @extend .d-flex, .flex-column;
+
+        &__avatar-wrapper {
+            @extend .mr-3, .align-self-start;
+        }
+    }
+
+    &__address {
+        @extend .d-flex, .flex-column;
+    }
+
+    &__header {
+        @extend .align-self-start;
+        font-size: 2em;
+        font-weight: 700;
+    }
+}
