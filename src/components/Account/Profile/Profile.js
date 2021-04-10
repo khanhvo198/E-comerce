@@ -41,7 +41,7 @@ function Profile(props) {
         <div className='profile'>
             <div className='profile__detail'>
                 <div className='profile__header'>My Profile</div>
-                <div className='d-flex'>
+                <div className='d-flex flex-wrap'>
                     <div className='profile__detail__avatar-wrapper'>
                         <Avatar round={true} size={150} src={Images.SHIN_AVATAR} />
                     </div>
@@ -67,13 +67,18 @@ function Profile(props) {
                             <Col lg='9'>{userInfo.birthday}</Col>
                         </Row>
                     </div>
+                    <div style={{ flex: 2 }}></div>
                     <div>
-                        <Button className='profile__detail__button' color='primary'>
-                            EDIT PROFILE
+                        <div>
+                            <Button className='profile__detail__button' color='primary'>
+                                EDIT PROFILE
                         </Button>
-                        <Button className='profile__detail__button' color='primary'>
-                            CHANGE PASSWORD
+                        </div>
+                        <div>
+                            <Button className='profile__detail__button' color='primary'>
+                                CHANGE PASSWORD
                         </Button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -11,7 +11,7 @@
         }
 
         &__content {
-            @extend .container, .mx-2;
+            @extend .container-fluid, .mx-2;
             max-width: 40vw;
             .row {
                 @extend .flex-wrap, .mb-2;
