@@ -1,21 +1,43 @@
 @import "node_modules/bootstrap/scss/bootstrap";
 
 .profile {
-    @extend .container, .mx-0;
+    @extend .container-fluid, .mx-0;
     &__detail {
-        @extend .d-flex, .flex-column;
+        @extend .d-flex, .flex-column, .px-5, .mb-5, .pt-2, .pb-5;
+        background-color: white;
 
         &__avatar-wrapper {
             @extend .mr-3, .align-self-start;
         }
+
+        &__content {
+            @extend .container, .mx-2;
+            max-width: 40vw;
+            .row {
+                @extend .flex-wrap, .mb-2;
+                text-align: left;
+            }
+
+            &--key {
+                font-weight: 600;
+            }
+        }
+
+        &__button {
+            @extend .align-self-center, .mb-3;
+            width: 12em;
+            height: 4em;
+            text-align: center;
+        }
     }
 
     &__address {
-        @extend .d-flex, .flex-column;
+        @extend .d-flex, .flex-column, .px-5, .my-5, .pt-2, .pb-5;
+        background-color: white;
     }
 
     &__header {
-        @extend .align-self-start;
+        @extend .align-self-start, .mt-3, .mb-4;
         font-size: 2em;
         font-weight: 700;
     }
