@@ -74,26 +74,28 @@
 }
 
 
-.checkout {
+.review__checkout {
     display: flex;
     flex-direction: column;
     
 }
 
-.checkout > .checkout__button {
+.review__checkout  .review__button {
     background-color: #42F2CB;
     color: #000;
     border: none;
     height: 48px;
     border-radius: 10px;
+    width:100%;
 }
 
-.checkout > .checkout__pay {
+.review__checkout  .review__pay {
     background-color: #fff;
     color: #000;
     border-radius: 10px;
     margin-top: 20px;
     height: 48px;
+    width: 100%;
 }
 
 

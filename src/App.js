@@ -6,6 +6,7 @@ import ProductDetail from './components/ProductDetail/ProductDetail'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Review from './components/Review/Review';
 import Account from 'components/Account/Account';
+import Checkout from 'components/Checkout/Checkout';
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
             <ProductDetail />
           </Route>
 
+
+
           <Route path="/review">
             <Review />
           </Route>
@@ -35,6 +38,11 @@ function App() {
           <Route path="/account">
             <Account />
           </Route>
+
+          <Route path="/checkout">
+            <Checkout />
+          </Route>
+
         </Switch>
 
         <Footer />

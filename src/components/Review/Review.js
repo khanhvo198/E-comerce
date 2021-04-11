@@ -2,6 +2,7 @@ import QuantityAdder from "components/ProductDetail/QuantityAdder/QuantityAdder"
 import Images from "constants/images";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom";
 import { Container, Row, Col, Button } from "reactstrap"
 import {setQuantityInCart,removeProduct} from '../../feature/Cart/CartSlice'
 
@@ -112,9 +113,13 @@ const Review = () => {
                             <p>Click here</p>
                         </div>
 
-                        <div className="checkout">
-                            <Button className="checkout__button">Checkout</Button>
-                            <Button className="checkout__pay">Pay with installments</Button>
+                        <div className="review__checkout">
+                            <Link to='/checkout' className={{textDecoration:'none',color:'inherit', }}>
+                                <Button className="review__button">Checkout</Button>
+                            </Link>
+                            <Link to='#' className={{textDecoration:'none', color:'inherit'}}>
+                                <Button className="review__pay">Pay with installments</Button>
+                            </Link>
                         </div>
                     </div>
                 </Col>
