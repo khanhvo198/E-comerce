@@ -62,43 +62,45 @@ function Order(props) {
 
     return (
         <div className='order__list'>
-            <h2 className="order__list--header">My Order</h2>
-            {orderList.map((order) => (
-                <Container className="order">
-                    <Row className="order__header">
-                        <Col xs="9" className="header__time">
-                            <p>Order {order.id}</p>
-                            <p>Placed on {order.date} {order.time} </p>
-                        </Col>
-                        <Col xs="1" className="header__total" >
-                            <p>200</p>
-                        </Col>
-                        <Col xs="2" className="header__delivered">
-                            <p>Delivered</p>
-                        </Col>
-                    </Row>
-                    {order.item.map((orderItem) => (
-                        <Row className="order__detail">
-                            <Col xs="2" className="item__thumbnail">
-                                <img className="item__image" src={Images.THUMBNAIL} />
+            <Container>
+                <h2 className="order__list--header">My Order</h2>
+                {orderList.map((order) => (
+                    <Container className="order">
+                        <Row className="order__header">
+                            <Col xs="9" className="header__time">
+                                <p><b>Order</b> <span className="order__id">{order.id}</span></p>
+                                <p className="order__date--time">Placed on {order.date} {order.time} </p>
                             </Col>
-                            <Col xs="7"  className="item__information">
-                                <p className="item__title">{orderItem.title}</p>
-                                <p className="item__quantity">Quantity:{orderItem.quantity}</p>
-                                
+                            <Col xs="1" className="header__total" >
+                                <p>200</p>
                             </Col>
-                            <Col xs="1" className="item__price">
-                                <p>{orderItem.price}</p>
-                            </Col>
-
-                            <Col xs="2" className="item__comment">
-                                <p>Comment</p>
+                            <Col xs="2" className="header__delivered">
+                                <p>Delivered</p>
                             </Col>
                         </Row>
-                    ))}
+                        {order.item.map((orderItem) => (
+                            <Row className="order__detail">
+                                <Col xs="2" className="item__thumbnail">
+                                    <img className="item__image" src={Images.THUMBNAIL} />
+                                </Col>
+                                <Col xs="7"  className="item__information">
+                                    <p className="item__title">{orderItem.title}</p>
+                                    <p className="item__quantity">Quantity:{orderItem.quantity}</p>
+                                    
+                                </Col>
+                                <Col xs="1" className="item__price">
+                                    <p>{orderItem.price}</p>
+                                </Col>
 
-                </Container>
-            ))}
+                                <Col xs="2" className="item__comment">
+                                    <p>Comment</p>
+                                </Col>
+                            </Row>
+                        ))}
+
+                    </Container>
+                ))}
+            </Container>
             
         </div>
     );

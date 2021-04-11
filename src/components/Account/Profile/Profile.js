@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import '../Profile/Profile.scss';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, Col, Container, Row, Table } from 'reactstrap';
 import Avatar from 'react-avatar';
 import Images from 'constants/images';
 
@@ -39,81 +39,83 @@ function Profile(props) {
 
     return (
         <div className='profile'>
-            <div className='profile__header'>My Profile</div>
-            <div className='profile__detail'>
-                <Row>
-                    <Col lg='3' className='profile__detail__avatar-wrapper'>
-                        <Avatar round={true} size={200} src={Images.SHIN_AVATAR} />
-                        <div>Change Avatar</div>
-                    </Col>
+            <Container>
+                <div className='profile__header'>My Profile</div>
+                <div className='profile__detail'>
+                    <Row>
+                        <Col lg='3' className='profile__detail__avatar-wrapper'>
+                            <Avatar round={true} size={200} src={Images.SHIN_AVATAR} />
+                            <div>Change Avatar</div>
+                        </Col>
 
-                    <Col lg='6'>
-                        <Table borderless>
-                            <tbody>
-                                <tr>
-                                    <th scope='row'>Full name:</th>
-                                    <td>{userInfo.fullname}</td>
-                                </tr>
-                                <tr>
-                                    <th scope='row'>Email:</th>
-                                    <td>{userInfo.email}</td>
-                                </tr>
-                                <tr>
-                                    <th scope='row'>Phone:</th>
-                                    <td>{userInfo.phone}</td>
-                                </tr>
-                                <tr>
-                                    <th scope='row'>Gender:</th>
-                                    <td>{userInfo.gender}</td>
-                                </tr>
-                                <tr>
-                                    <th scope='row'>Birthday:</th>
-                                    <td>{userInfo.birthday}</td>
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </Col>
+                        <Col lg='6'>
+                            <Table borderless>
+                                <tbody>
+                                    <tr>
+                                        <th scope='row'>Full name:</th>
+                                        <td>{userInfo.fullname}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope='row'>Email:</th>
+                                        <td>{userInfo.email}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope='row'>Phone:</th>
+                                        <td>{userInfo.phone}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope='row'>Gender:</th>
+                                        <td>{userInfo.gender}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope='row'>Birthday:</th>
+                                        <td>{userInfo.birthday}</td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+                        </Col>
 
-                    <Col lg='3'>
-                        <div>
-                            <Button className='profile__detail__button' color='primary'>
-                                EDIT PROFILE
-                        </Button>
-                        </div>
-                        <div>
-                            <Button className='profile__detail__button' color='primary'>
-                                CHANGE PASSWORD
-                        </Button>
-                        </div>
-                    </Col>
-                </Row>
-            </div>
+                        <Col lg='3'>
+                            <div>
+                                <Button className='profile__detail__button' color='primary'>
+                                    EDIT PROFILE
+                            </Button>
+                            </div>
+                            <div>
+                                <Button className='profile__detail__button' color='primary'>
+                                    CHANGE PASSWORD
+                            </Button>
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
 
-            <div className='profile__header'>Address Book</div>
-            <div className='profile__address'>
-                <Table hover>
-                    <thead>
-                        <tr>
-                            <th>Full name</th>
-                            <th>Address</th>
-                            <th>Phone</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            userInfo.bookingAddress.map((info, index) => (
-                                <tr>
-                                    <td>{info.fullname}</td>
-                                    <td>{info.address}</td>
-                                    <td>{info.phone}</td>
-                                    <td><a href='#'>Edit</a></td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </Table>
-            </div>
+                <div className='profile__header'>Address Book</div>
+                <div className='profile__address'>
+                    <Table hover>
+                        <thead>
+                            <tr>
+                                <th>Full name</th>
+                                <th>Address</th>
+                                <th>Phone</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                userInfo.bookingAddress.map((info, index) => (
+                                    <tr>
+                                        <td>{info.fullname}</td>
+                                        <td>{info.address}</td>
+                                        <td>{info.phone}</td>
+                                        <td><a href='#'>Edit</a></td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </Table>
+                </div>
+            </Container>
         </div>
     );
 }

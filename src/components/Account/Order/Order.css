@@ -3,7 +3,9 @@
 
 
 .order {
-    margin-top: 60px;
+    margin: 40px 0px;
+    background-color: #fff;
+    padding: 40px;
 }
 .order__header {
     border-bottom: 1px solid #000;
@@ -11,20 +13,36 @@
 
 
 .header__time {
-    /* display: flex;
-    flex-direction: column;
-    align-content: flex-start; */
     text-align: left;
+}
+
+.order__id {
+    color: blue;
+}
+
+.order__date--time {
+    color: #6F6B6B;
 }
 
 
 .order__list--header {
     display: flex;
     justify-content: flex-start;
-    padding: 20px;
+    /* padding: 20px; */
+    margin-top:20px;
+    font-weight: 700;
+
 }
 
 
+.header__delivered {
+    color: blue;
+}
+
+
+.item__comment {
+    color: blue;
+}
 
 .item__image {
     width: 100%;
