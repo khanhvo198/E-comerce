@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { Container, Row, Col, Button } from "reactstrap"
 import {setQuantityInCart,removeProduct} from '../../feature/Cart/CartSlice'
 
-import './Checkout.css'
-const Checkout = () => {
+import './Review.css'
+const Review = () => {
 
     const [subtotal,setSubtotal] = useState(0)
     const cart = useSelector(state => state.cart)
@@ -17,10 +17,6 @@ const Checkout = () => {
         const subtotal = cart?.reduce((amount, item) => amount + item.price*item.quantity, 0)
         setSubtotal(subtotal)
     }, [cart])
-
-
-
-
 
 
 
@@ -50,9 +46,6 @@ const Checkout = () => {
 
 
     return (
-
-        
-        
         <Container className="review">
             {/* {console.log(cart)} */}
                 <h1 className="review__title">Review Your Bag</h1>
@@ -126,12 +119,7 @@ const Checkout = () => {
                     </div>
                 </Col>
             </Row>
-                
-                
         </Container>
-
-
-
     )
 
 
@@ -140,4 +128,4 @@ const Checkout = () => {
 
 
 
-export default Checkout
+export default Review

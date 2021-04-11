@@ -7,6 +7,13 @@
 .item__detail {
     margin: 0;
 } */
+.review__title {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 30px;
+}
+
+
 
 .item__detail {
     display: flex;

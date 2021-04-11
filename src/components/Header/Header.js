@@ -27,7 +27,7 @@ const Header = () => {
                         <AiOutlineSearch className="header--searchIcon" />
                     </InputGroupAddon>
                 </InputGroup>
-                <Link to="/checkout" style={{ color: 'inherit', textDecoration: 'none' }} >
+                <Link to="/review" style={{ color: 'inherit', textDecoration: 'none' }} >
                     {/* <AiOutlineShoppingCart className="header--cart"/>
                         <span className="header--cart__count">0</span> */}
                     <Cart />

@@ -4,7 +4,7 @@ import Footer from './components/Footer/Footer';
 import Home from './components/Home/Home';
 import ProductDetail from './components/ProductDetail/ProductDetail'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Checkout from './components/Checkout/Checkout';
+import Review from './components/Review/Review';
 import Account from 'components/Account/Account';
 
 function App() {
@@ -28,8 +28,8 @@ function App() {
             <ProductDetail />
           </Route>
 
-          <Route path="/checkout">
-            <Checkout />
+          <Route path="/review">
+            <Review />
           </Route>
 
           <Route path="/account">
