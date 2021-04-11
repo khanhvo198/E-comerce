@@ -17,7 +17,7 @@ function Account(props) {
     return (
         <div className='account'>
             <Row>
-                <Col lg='2'>
+                <Col lg='1' className='account__nav'>
                     <div className='account__nav--profile'>
                         <Link to={`${match.url}/profile`}>
                             <ImProfile size={30} />
@@ -31,7 +31,7 @@ function Account(props) {
                         </Link>
                     </div>
                 </Col>
-                <Col lg='10'>
+                <Col lg='10' className='account__content'>
                     <Switch>
                         <Route path={`${match.url}/profile`}>
                             <Profile />

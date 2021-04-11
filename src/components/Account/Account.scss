@@ -2,7 +2,9 @@
 
 .account {
     @extend .container-fluid;
+    background-color: #f5f5f5;
     &__nav {
+        @extend .pl-1, .pr-0, .mx-0;
         &--profile,
         &--order {
             @extend .my-3;

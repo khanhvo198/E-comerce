@@ -1,22 +1,44 @@
 @import "node_modules/bootstrap/scss/bootstrap";
 
 .profile {
-    @extend .container, .mx-0;
+    @extend .container-fluid, .mx-0;
     &__detail {
-        @extend .d-flex, .flex-column;
+        @extend .container-fluid, .px-5, .py-4, .mx-0, .mt-0, .mb-5;
+        background-color: white;
 
         &__avatar-wrapper {
-            @extend .mr-3, .align-self-start;
+            @extend .align-self-start, .my-3;
+        }
+
+        &__button {
+            @extend .align-self-center, .mb-3;
+            width: 12em;
+            height: 4em;
+            text-align: center;
+        }
+
+        .row {
+            @extend .d-flex, .flex-row, .align-items-center;
+        }
+
+        .col {
+            @extend .mx-0;
+        }
+
+        .table {
+            text-align: left;
         }
     }
 
     &__address {
-        @extend .d-flex, .flex-column;
+        @extend .px-5, .mt-0, .mb-5, .py-5, .mx-0;
+        background-color: white;
     }
 
     &__header {
-        @extend .align-self-start;
+        @extend .align-self-start, .my-4, .mx-0;
         font-size: 2em;
         font-weight: 700;
+        text-align: left;
     }
 }
