@@ -39,36 +39,42 @@ function Profile(props) {
 
     return (
         <div className='profile'>
+            <div className='profile__header'>My Profile</div>
             <div className='profile__detail'>
-                <div className='profile__header'>My Profile</div>
-                <div className='d-flex flex-wrap'>
-                    <div className='profile__detail__avatar-wrapper'>
-                        <Avatar round={true} size={150} src={Images.SHIN_AVATAR} />
-                    </div>
-                    <div className='profile__detail__content'>
-                        <Row>
-                            <Col lg='3' className='profile__detail__content--key'>Full name:</Col>
-                            <Col lg='9'>{userInfo.fullname}</Col>
-                        </Row>
-                        <Row>
-                            <Col lg='3' className='profile__detail__content--key'>Email:</Col>
-                            <Col lg='9'>{userInfo.email}</Col>
-                        </Row>
-                        <Row>
-                            <Col lg='3' className='profile__detail__content--key'>Phone:</Col>
-                            <Col lg='9'>{userInfo.phone}</Col>
-                        </Row>
-                        <Row>
-                            <Col lg='3' className='profile__detail__content--key'>Gender:</Col>
-                            <Col lg='9'>{userInfo.gender}</Col>
-                        </Row>
-                        <Row>
-                            <Col lg='3' className='profile__detail__content--key'>Birthday:</Col>
-                            <Col lg='9'>{userInfo.birthday}</Col>
-                        </Row>
-                    </div>
-                    <div style={{ flex: 2 }}></div>
-                    <div>
+                <Row>
+                    <Col lg='3' className='profile__detail__avatar-wrapper'>
+                        <Avatar round={true} size={200} src={Images.SHIN_AVATAR} />
+                        <div>Change Avatar</div>
+                    </Col>
+
+                    <Col lg='6'>
+                        <Table borderless>
+                            <tbody>
+                                <tr>
+                                    <th scope='row'>Full name:</th>
+                                    <td>{userInfo.fullname}</td>
+                                </tr>
+                                <tr>
+                                    <th scope='row'>Email:</th>
+                                    <td>{userInfo.email}</td>
+                                </tr>
+                                <tr>
+                                    <th scope='row'>Phone:</th>
+                                    <td>{userInfo.phone}</td>
+                                </tr>
+                                <tr>
+                                    <th scope='row'>Gender:</th>
+                                    <td>{userInfo.gender}</td>
+                                </tr>
+                                <tr>
+                                    <th scope='row'>Birthday:</th>
+                                    <td>{userInfo.birthday}</td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </Col>
+
+                    <Col lg='3'>
                         <div>
                             <Button className='profile__detail__button' color='primary'>
                                 EDIT PROFILE
@@ -79,13 +85,12 @@ function Profile(props) {
                                 CHANGE PASSWORD
                         </Button>
                         </div>
-                    </div>
-                </div>
+                    </Col>
+                </Row>
             </div>
 
-
+            <div className='profile__header'>Address Book</div>
             <div className='profile__address'>
-                <div className='profile__header'>Address Book</div>
                 <Table hover>
                     <thead>
                         <tr>
