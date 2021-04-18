@@ -7,8 +7,33 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Review from './components/Review/Review';
 import Account from 'components/Account/Account';
 import Checkout from 'components/Checkout/Checkout';
+import { useEffect } from 'react';
+import firebase from 'firebase'
 
 function App() {
+
+  const config = {
+    apiKey: process.env.REACT_APP_FIREBASE_API,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  };
+
+  firebase.initializeApp(config);
+
+
+  useEffect(() => {
+    const unregisterAuthObserver = firebase.auth().onAuthStateChanged(async (user) => {
+      if(!user) {
+        console.log("User not log in")
+        return ;
+      }
+      console.log('user', user.displayName)
+      const token = await user.getIdToken()
+      console.log('user token', token)
+    });
+    return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
+  }, []);
+
+
   return (
     <BrowserRouter>
       <div className="App">
