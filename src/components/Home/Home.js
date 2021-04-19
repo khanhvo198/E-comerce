@@ -1,7 +1,6 @@
-import axiosClient from "api/axiosClient";
-import productApi from "api/productApi";
 import Slider from "components/Slider/Slider";
 import Images from "constants/images";
+import  {database}  from "../../firebase/firebase";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
@@ -196,9 +195,26 @@ const Home = () => {
         // Implement useEffect in order to fetch API and get productList
         const fetchProductList = async () => {
             try {
-                const response = await productApi.getAll()
-                console.log(response)
-                setProductList(response)
+                // const response = await productApi.getAll()
+                // console.log(response)
+                // setProductList(response)
+                // const snapshot = await database.ref('Products').get()
+                // const productListFromFireStore = []
+                // snapshot.forEach(doc => {
+                //     productListFromFireStore.push({id: doc.id , data:doc.data()})
+                // });
+                // console.log(productListFromFireStore)
+                // setProductList(productListFromFireStore)
+
+
+
+                database.ref().child("Products").get().then((snapshot) => {
+                    if(snapshot.exists()) {
+                        console.log(snapshot.val())
+                    } else {
+                        console.log("No data")
+                    }
+                })
             } catch (err)  {
                 console.log(err)
             }

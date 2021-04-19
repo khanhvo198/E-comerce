@@ -9,16 +9,16 @@ import Account from 'components/Account/Account';
 import Checkout from 'components/Checkout/Checkout';
 import Login from 'components/Login/Login';
 import { useEffect } from 'react';
-import firebase from 'firebase'
+import firebase from './firebase/firebase'
 
 function App() {
 
-  const config = {
-    apiKey: process.env.REACT_APP_FIREBASE_API,
-    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  };
+  // const config = {
+  //   apiKey: process.env.REACT_APP_FIREBASE_API,
+  //   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  // };
 
-  firebase.initializeApp(config);
+  // firebase.initializeApp(config);
 
 
   useEffect(() => {
