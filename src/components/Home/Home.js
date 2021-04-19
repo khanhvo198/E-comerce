@@ -1,6 +1,6 @@
 import Slider from "components/Slider/Slider";
 import Images from "constants/images";
-import  {database}  from "../../firebase/firebase";
+import { database } from "../../firebase/firebase";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
@@ -14,179 +14,179 @@ const Home = () => {
 
 
     const data = [
-    {
-        id: 1,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 2,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 3,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 4,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 5,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 6,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 7,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 8,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 9,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 10,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 11,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 12,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 13,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 14,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 15,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 16,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 17,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 18,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 19,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 20,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 21,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 22,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 23,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    },
-    {
-        id: 24,
-        image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-        title: "This is sample product",
-        price: 29.99,
-        rating: 5,
-    }
+        {
+            id: 1,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 2,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 3,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 4,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 5,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 6,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 7,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 8,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 9,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 10,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 11,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 12,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 13,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 14,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 15,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 16,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 17,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 18,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 19,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 20,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 21,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 22,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 23,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        },
+        {
+            id: 24,
+            image: "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
+            title: "This is sample product",
+            price: 29.99,
+            rating: 5,
+        }
     ]
 
     const [productList, setProductList] = useState([])
 
-// 
+    // 
     // const [currentProductList,setCurrentProductList] = useState([])
 
 
@@ -227,13 +227,13 @@ const Home = () => {
 
                 const snapshot = await database.collection("Products").get()
                 const result = []
-                snapshot.forEach(doc=>{
-                    result.push(doc.data())
+                snapshot.forEach(doc => {
+                    result.push({ ...doc.data(), id: doc.id })
                 })
                 console.log(result)
                 setProductList(result)
 
-            } catch (err)  {
+            } catch (err) {
                 console.log(err)
             }
         }

@@ -19,13 +19,14 @@ import './ProductCard.scss';
 
 function ProductCard(props) {
     const { title, rating, numComments, numItemsSold, price, img, specification } = props
+    const { brand, cpu, Ram, storage, design, size, guarantee } = specification
     const [quantity, setQuantity] = useState(1);
     const cart = useSelector(state => state.cart)
     const dispatch = useDispatch();
 
     const getIndex = (id, cart) => {
-        for(let i = 0; i < cart.length; i++) {
-            if(id === cart[i].id ) {
+        for (let i = 0; i < cart.length; i++) {
+            if (id === cart[i].id) {
                 return i
             }
         }
@@ -36,10 +37,10 @@ function ProductCard(props) {
     const handleOnAddToCart = () => {
         const action = addProduct({ ...props, quantity });
         const index = getIndex(props.id, cart)
-        const isAdd = index === -1 ? false  : true
+        const isAdd = index === -1 ? false : true
 
-        if(isAdd) {
-            const action = setQuantityInCart({id: props.id, quantity: quantity + cart[index].quantity })
+        if (isAdd) {
+            const action = setQuantityInCart({ id: props.id, quantity: quantity + cart[index].quantity })
             dispatch(action)
             return
         }
@@ -87,12 +88,40 @@ function ProductCard(props) {
                         </div>
                         <div className='productcard__info__price'>{price}$</div>
                         <Container className='productcard__info__specification'>
-                            {Object.keys(specification).map((key, index) => (
+                            <Row>
+                                <Col lg='4' className='productcard__info__specification--key'>Brand:</Col>
+                                <Col lg='7' className='productcard__info__specification--value'>{brand}</Col>
+                            </Row>
+                            <Row>
+                                <Col lg='4' className='productcard__info__specification--key'>CPU:</Col>
+                                <Col lg='7' className='productcard__info__specification--value'>{cpu}</Col>
+                            </Row>
+                            <Row>
+                                <Col lg='4' className='productcard__info__specification--key'>RAM:</Col>
+                                <Col lg='7' className='productcard__info__specification--value'>{Ram}</Col>
+                            </Row>
+                            <Row>
+                                <Col lg='4' className='productcard__info__specification--key'>Storage:</Col>
+                                <Col lg='7' className='productcard__info__specification--value'>{storage}</Col>
+                            </Row>
+                            <Row>
+                                <Col lg='4' className='productcard__info__specification--key'>Design:</Col>
+                                <Col lg='7' className='productcard__info__specification--value'>{design}</Col>
+                            </Row>
+                            <Row>
+                                <Col lg='4' className='productcard__info__specification--key'>Size:</Col>
+                                <Col lg='7' className='productcard__info__specification--value'>{size}</Col>
+                            </Row>
+                            <Row>
+                                <Col lg='4' className='productcard__info__specification--key'>Guarantee:</Col>
+                                <Col lg='7' className='productcard__info__specification--value'>{guarantee}</Col>
+                            </Row>
+                            {/* {Object.keys(specification).map((key, index) => (
                                 <Row>
                                     <Col lg='4' className='productcard__info__specification--key'>{capitalize(key)}</Col>
                                     <Col lg='7' className='productcard__info__specification--value'>{specification[key]}</Col>
                                 </Row>
-                            ))}
+                            ))} */}
                         </Container>
                         <div className='productcard__info__quantity'>
                             <div>Quantity:</div>
