@@ -9,13 +9,18 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+<<<<<<< HEAD
     "formik": "^2.2.6",
+=======
+    "firebase": "^8.4.1",
+>>>>>>> 018d95f64a1eed3baf3d7b5e22ada142b9a7301e
     "jquery": "^3.6.0",
     "node-sass": "^5.0.0",
     "query-string": "^7.0.0",
     "react": "^17.0.1",
     "react-avatar": "^3.10.0",
     "react-dom": "^17.0.1",
+    "react-firebaseui": "^4.1.0",
     "react-icons": "^4.2.0",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
