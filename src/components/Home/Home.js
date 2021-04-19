@@ -8,6 +8,8 @@ import Category from "../Category/Category";
 import PaginationProduct from "../Pagination/PaginationProduct";
 import Product from "../Product/Product";
 import "./Home.css";
+// import firebase from "firebase/app"
+import 'firebase/firestore'
 const Home = () => {
 
 
@@ -207,14 +209,30 @@ const Home = () => {
                 // setProductList(productListFromFireStore)
 
 
+                // firebase.firestore().ref("Products").get().then((snapshot) => {
+                //     console.log(snapshot.val())
+                // })
+                // database
+                //     .ref()
+                //     .child("Products")
+                //     .get()
+                //     .then((snapshot) => {
+                //         if(snapshot.exists()) {
+                //             console.log(snapshot.val())
+                //         } else {
+                //             console.log("No data")
+                //         }
+                //     })
 
-                database.ref().child("Products").get().then((snapshot) => {
-                    if(snapshot.exists()) {
-                        console.log(snapshot.val())
-                    } else {
-                        console.log("No data")
-                    }
+
+                const snapshot = await database.collection("Products").get()
+                const result = []
+                snapshot.forEach(doc=>{
+                    result.push(doc.data())
                 })
+                console.log(result)
+                setProductList(result)
+
             } catch (err)  {
                 console.log(err)
             }
@@ -264,9 +282,9 @@ const Home = () => {
                             <Link to={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                 <Product
                                     image={Images.MAC_BOOK_PRO}
-                                    title={product.data.title}
-                                    price={product.data.price}
-                                    rating={product.data.rating}
+                                    title={product.title}
+                                    price={product.price}
+                                    rating={product.rating}
                                 />
                             </Link>
                         </Col>
