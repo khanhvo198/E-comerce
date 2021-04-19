@@ -7,29 +7,56 @@ import Order from './Order/Order';
 import '../Account/Account.scss';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { ImProfile } from 'react-icons/im';
+import SideBar from 'components/SideBar/SideBar';
 
 Account.propTypes = {
 
 };
 
+Account.defaultProps = {
+    isAdmin: false,
+}
+
 function Account(props) {
+    const { isAdmin } = props
     const match = useRouteMatch()
+
+    const sideItems = isAdmin
+        ? [
+            {
+                icon: <ImProfile size={30} />,
+                title: 'My Profile',
+                link: `${match.url}/profile`,
+            },
+            {
+                icon: <ImProfile size={30} />,
+                title: 'My Profile',
+                link: `${match.url}/profile`,
+            },
+            {
+                icon: <ImProfile size={30} />,
+                title: 'My Profile',
+                link: `${match.url}/profile`,
+            },
+        ]
+        : [
+            {
+                icon: <ImProfile size={30} />,
+                title: 'My Profile',
+                link: `${match.url}/profile`,
+            },
+            {
+                icon: <AiOutlineShoppingCart size={30} />,
+                title: 'My Order',
+                link: `${match.url}/order`,
+            },
+        ]
+
     return (
         <div className='account'>
             <Row>
                 <Col lg='1' className='account__nav'>
-                    <div className='account__nav--profile'>
-                        <Link to={`${match.url}/profile`}>
-                            <ImProfile size={30} />
-                            <span>My Profile</span>
-                        </Link>
-                    </div>
-                    <div className='account__nav--order'>
-                        <Link to={`${match.url}/order`}>
-                            <AiOutlineShoppingCart size={30} />
-                            <span>My Order</span>
-                        </Link>
-                    </div>
+                    <SideBar sideItems={sideItems} />
                 </Col>
                 <Col lg='10' className='account__content'>
                     <Switch>

@@ -1,0 +1,25 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.sidebar {
+    @extend .pl-1, .pr-0, .mx-0;
+    .sideitem {
+        @extend .my-3;
+        text-align: left;
+        &__link {
+            text-decoration: none;
+            color: inherit;
+        }
+        // a {
+        //     color: black;
+        //     text-decoration: none;
+        //     &:hover {
+        //         color: black;
+        //         text-decoration: none;
+        //     }
+        // }
+        span {
+            @extend .mx-2;
+            font-size: 1em;
+        }
+    }
+}

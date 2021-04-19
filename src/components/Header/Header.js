@@ -43,7 +43,7 @@ const Header = () => {
                             <DropdownItem>Facebook</DropdownItem>
                             <DropdownItem>
                                 {/* temporary */}
-                                <Link to='/account'>
+                                <Link to='/login'>
                                     Google
                                 </Link>
                             </DropdownItem>
