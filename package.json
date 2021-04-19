@@ -9,11 +9,8 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
-<<<<<<< HEAD
     "formik": "^2.2.6",
-=======
     "firebase": "^8.4.1",
->>>>>>> 018d95f64a1eed3baf3d7b5e22ada142b9a7301e
     "jquery": "^3.6.0",
     "node-sass": "^5.0.0",
     "query-string": "^7.0.0",

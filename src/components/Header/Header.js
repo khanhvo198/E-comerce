@@ -18,12 +18,12 @@ const Header = () => {
         signInFlow: 'popup',
         // We will display Google and Facebook as auth providers.
         signInOptions: [
-          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-          firebase.auth.FacebookAuthProvider.PROVIDER_ID
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            firebase.auth.FacebookAuthProvider.PROVIDER_ID
         ],
         callbacks: {
-          // Avoid redirects after sign-in.
-          signInSuccessWithAuthResult: () => false,
+            // Avoid redirects after sign-in.
+            signInSuccessWithAuthResult: () => false,
         },
     };
 
@@ -59,7 +59,7 @@ const Header = () => {
                             <DropdownItem>Facebook</DropdownItem>
                             <DropdownItem>
                                 {/* temporary */}
-                                <Link to='/login'>
+                                <Link to='/account'>
                                     Google
                                 </Link>
                             </DropdownItem>
