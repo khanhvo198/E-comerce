@@ -43,15 +43,18 @@ const ProductDetail = () => {
             console.log(newProductInfo)
             setProductInfo(newProductInfo)
         })
-    }, [productInfo])
+    }, [])
 
     // useEffect(() => {
     //     // get comment list
     //     const productID = match.params.id
     //     const commentsRef = db.collection('Comments').where('product', '==', productID).get().then((querySnapshot) => {
-    //         const newCommentList = querySnapshot.map((comment) => (
+    //         const newCommentList = querySnapshot.map((comment) => {
     //             comment.data()
-    //         ))
+    //             const {user} = comment.data()
+
+
+    //         })
     //         setCommentList(newCommentList)
     //     })
     // }, [commentList])

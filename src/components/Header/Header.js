@@ -14,8 +14,12 @@ const Header = () => {
 
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const toggle = () => setDropdownOpen(prevState => !prevState)
+<<<<<<< HEAD
     const user = useSelector(state => state.user)
     const dispatch = useDispatch()
+=======
+    // console.log("User: ", user)
+>>>>>>> 0978ea5027577803a4e925a643dcb5f0d70469e6
 
     const uiConfig = {
         // Popup signin flow rather than redirect flow.
@@ -71,6 +75,7 @@ const Header = () => {
             </Col>
             <Col xs="2" className="header--user">
                 <List type="inline" className="header--user__items">
+<<<<<<< HEAD
                     {user.isLogin
                         ? <Dropdown isOpen={dropdownOpen} 
                             direction="down"
@@ -83,6 +88,12 @@ const Header = () => {
                                     <img src={user.photoURL} />
                                     <p>{user.userName}</p>
                                 </div>
+=======
+                    {firebase.auth().currentUser
+                        ? <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
+                            <DropdownToggle caret>
+                                Avatar
+>>>>>>> 0978ea5027577803a4e925a643dcb5f0d70469e6
                             </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem>
