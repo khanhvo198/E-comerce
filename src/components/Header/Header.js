@@ -6,6 +6,8 @@ import Cart from "../../feature/Cart/Cart"
 import "./Header.css"
 import firebase from 'firebase'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import { useDispatch, useSelector } from "react-redux"
+import { signOut } from "app/UserSlice"
 
 
 const Header = () => {
@@ -13,6 +15,8 @@ const Header = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const toggle = () => setDropdownOpen(prevState => !prevState)
     // console.log("User: ", user)
+    const user = useSelector(state => state.user)
+    const dispatch = useDispatch()
 
     const uiConfig = {
         // Popup signin flow rather than redirect flow.
@@ -36,11 +40,14 @@ const Header = () => {
     const handleLogout = () => {
         firebase.auth().signOut().then(() => {
             console.log('Logout')
+            const action = signOut()
+            dispatch(action)
             history.push("/")
         }).catch((error) => {
             console.log('Logout Error: ', error)
         });
     }
+
 
     return (
 
@@ -65,21 +72,29 @@ const Header = () => {
             </Col>
             <Col xs="2" className="header--user">
                 <List type="inline" className="header--user__items">
-                    {firebase.auth().currentUser
-                        ? <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
-                            <DropdownToggle caret>
-                                Avatar
+                    {user.isLogin
+                        ? <Dropdown isOpen={dropdownOpen} 
+                            direction="down"
+                            onMouseEnter={toggle}
+                            onMouseLeave={toggle}
+                            onMouseBlur={toggle}
+                            >
+                            <DropdownToggle style={{backgroundColor:'inherit',border:'none'}}>
+                                <div className="user-info">
+                                    <img src={user.photoURL} />
+                                    <p>{user.userName}</p>
+                                </div>
                             </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem>
                                     {/* temporary */}
-                                    <Link to='/account/profile'>
+                                    <Link to='/account/profile' style={{textDecoration:"none",color:"inherit"}}>
                                         My Profile
                                     </Link>
                                 </DropdownItem>
                                 <DropdownItem>
                                     {/* temporary */}
-                                    <Link to='/account/order'>
+                                    <Link to='/account/order' style={{textDecoration:"none",color:"inherit"}}>
                                         My Order
                                     </Link>
                                 </DropdownItem>
@@ -88,6 +103,10 @@ const Header = () => {
                                 </DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
+                        // <div className="user-info" onMouseEnter={handleOnMouseEnter} >
+                        //     <img src={user.photoURL} />
+                        //     <p>{user.userName}</p>
+                        // </div>    
                         : <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="left">
                             <DropdownToggle caret>
                                 Login

@@ -8,8 +8,10 @@ import Review from './components/Review/Review';
 import Account from 'components/Account/Account';
 import Checkout from 'components/Checkout/Checkout';
 import Login from 'components/Login/Login';
-import { useEffect } from 'react';
+import React, { lazy, useEffect } from 'react';
 import firebase from './firebase/firebase'
+import { useDispatch, useSelector } from 'react-redux';
+import { signIn } from 'app/UserSlice';
 import db from 'firebase/firebase.config'
 
 function App() {
@@ -20,6 +22,10 @@ function App() {
   // };
 
   // firebase.initializeApp(config);
+
+
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
 
 
   useEffect(() => {
@@ -48,9 +54,18 @@ function App() {
       // const token = await user.getIdToken()
       // console.log('user token', token)
       // console.log(user.uid)
+      const photoURL = user.photoURL
+      const action = signIn({isLogin: true, userName: user.displayName, photoURL: photoURL})
+      dispatch(action)
+
     });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
   }, []);
+
+
+  // const Account = React.lazy(()=>import('./components/Account/Account'))
+  // const Account = React.lazy(()=>import('./components/Account'))
+  // const Account = React.lazy(() => import('./components/Account/Account'));
 
 
   return (
@@ -80,16 +95,16 @@ function App() {
           </Route>
 
           <Route path="/account">
-            <Account />
+            <Account/>
           </Route>
 
           <Route path="/checkout">
             <Checkout />
           </Route>
 
-          <Route path="/login">
+          {/* <Route path="/login">
             <Login />
-          </Route>
+          </Route> */}
 
         </Switch>
 
