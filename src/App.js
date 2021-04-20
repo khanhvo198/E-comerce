@@ -10,12 +10,9 @@ import Checkout from 'components/Checkout/Checkout';
 import Login from 'components/Login/Login';
 import React, { lazy, useEffect } from 'react';
 import firebase from './firebase/firebase'
-<<<<<<< HEAD
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'app/UserSlice';
-=======
 import db from 'firebase/firebase.config'
->>>>>>> 0978ea5027577803a4e925a643dcb5f0d70469e6
 
 function App() {
 
@@ -37,8 +34,6 @@ function App() {
         console.log("User not log in")
         return;
       }
-<<<<<<< HEAD
-=======
 
       // how to add only one time ???
       const userRef = db.collection('Users').doc(user.uid).set({
@@ -55,18 +50,14 @@ function App() {
 
 
 
->>>>>>> 0978ea5027577803a4e925a643dcb5f0d70469e6
       // console.log('user', user.displayName)
       // const token = await user.getIdToken()
       // console.log('user token', token)
       // console.log(user.uid)
-<<<<<<< HEAD
       const photoURL = user.photoURL
       const action = signIn({isLogin: true, userName: user.displayName, photoURL: photoURL})
       dispatch(action)
 
-=======
->>>>>>> 0978ea5027577803a4e925a643dcb5f0d70469e6
     });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
   }, []);
