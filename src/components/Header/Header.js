@@ -12,7 +12,7 @@ const Header = () => {
 
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const toggle = () => setDropdownOpen(prevState => !prevState)
-    const user = firebase.auth().currentUser
+    // console.log("User: ", user)
 
     const uiConfig = {
         // Popup signin flow rather than redirect flow.
@@ -65,7 +65,7 @@ const Header = () => {
             </Col>
             <Col xs="2" className="header--user">
                 <List type="inline" className="header--user__items">
-                    {user
+                    {firebase.auth().currentUser
                         ? <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
                             <DropdownToggle caret>
                                 Avatar

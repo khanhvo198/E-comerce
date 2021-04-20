@@ -10,6 +10,7 @@ import Checkout from 'components/Checkout/Checkout';
 import Login from 'components/Login/Login';
 import { useEffect } from 'react';
 import firebase from './firebase/firebase'
+import db from 'firebase/firebase.config'
 
 function App() {
 
@@ -27,10 +28,26 @@ function App() {
         console.log("User not log in")
         return;
       }
-      console.log('user', user.displayName)
-      const token = await user.getIdToken()
-      console.log('user token', token)
-      console.log(user.uid)
+
+      // how to add only one time ???
+      const userRef = db.collection('Users').doc(user.uid).set({
+        displayName: user.displayName,
+        email: user.email,
+        avatar: user.photoURL,
+        phone: user.phoneNumber,
+      }).then(() => {
+        console.log('Add user successfully')
+      }).catch((error) => {
+        console.log('Add user error: ', error)
+      })
+
+
+
+
+      // console.log('user', user.displayName)
+      // const token = await user.getIdToken()
+      // console.log('user token', token)
+      // console.log(user.uid)
     });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
   }, []);
