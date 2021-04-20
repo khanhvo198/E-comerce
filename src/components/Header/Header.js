@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { AiOutlineSearch } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import { Link, Redirect, useHistory } from 'react-router-dom'
 import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Input, InputGroup, InputGroupAddon, List, Row } from "reactstrap"
 import Cart from "../../feature/Cart/Cart"
 import "./Header.css"
@@ -12,13 +12,18 @@ const Header = () => {
 
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const toggle = () => setDropdownOpen(prevState => !prevState)
+    const user = firebase.auth().currentUser
 
     const uiConfig = {
         // Popup signin flow rather than redirect flow.
         signInFlow: 'popup',
         // We will display Google and Facebook as auth providers.
         signInOptions: [
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            {
+                provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                customParameters: { prompt: 'select_account' },
+            },
             firebase.auth.FacebookAuthProvider.PROVIDER_ID
         ],
         callbacks: {
@@ -27,6 +32,15 @@ const Header = () => {
         },
     };
 
+    const history = useHistory()
+    const handleLogout = () => {
+        firebase.auth().signOut().then(() => {
+            console.log('Logout')
+            history.push("/")
+        }).catch((error) => {
+            console.log('Logout Error: ', error)
+        });
+    }
 
     return (
 
@@ -51,24 +65,39 @@ const Header = () => {
             </Col>
             <Col xs="2" className="header--user">
                 <List type="inline" className="header--user__items">
-                    <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="left">
-                        <DropdownToggle caret>
-                            Login
+                    {user
+                        ? <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
+                            <DropdownToggle caret>
+                                Avatar
+                            </DropdownToggle>
+                            <DropdownMenu right>
+                                <DropdownItem>
+                                    {/* temporary */}
+                                    <Link to='/account/profile'>
+                                        My Profile
+                                    </Link>
+                                </DropdownItem>
+                                <DropdownItem>
+                                    {/* temporary */}
+                                    <Link to='/account/order'>
+                                        My Order
+                                    </Link>
+                                </DropdownItem>
+                                <DropdownItem>
+                                    <div onClick={handleLogout}>Logout</div>
+                                </DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown>
+                        : <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="left">
+                            <DropdownToggle caret>
+                                Login
                         </DropdownToggle>
-                        <DropdownMenu right>
-                            <DropdownItem>Facebook</DropdownItem>
-                            <DropdownItem>
-                                {/* temporary */}
-                                <Link to='/account'>
-                                    Google
-                                </Link>
-                            </DropdownItem>
-                            <DropdownItem>
-                                <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-                            </DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
-
+                            <DropdownMenu right>
+                                <DropdownItem>
+                                    <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+                                </DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown>}
                 </List>
             </Col>
         </Row>
