@@ -13,9 +13,9 @@ const ProductDetail = () => {
     let match = useRouteMatch()
 
     const [productInfo, setProductInfo] = useState(null)
-    // const [commentList, setCommentList] = useState([])
+    const [commentList, setCommentList] = useState([])
 
-    const commentList = [
+    const exampleCommentList = [
         {
             username: 'Nohara Shinnosuke',
             rating: 4,
@@ -45,19 +45,31 @@ const ProductDetail = () => {
         })
     }, [])
 
-    // useEffect(() => {
-    //     // get comment list
-    //     const productID = match.params.id
-    //     const commentsRef = db.collection('Comments').where('product', '==', productID).get().then((querySnapshot) => {
-    //         const newCommentList = querySnapshot.map((comment) => {
-    //             comment.data()
-    //             const {user} = comment.data()
-
-
-    //         })
-    //         setCommentList(newCommentList)
-    //     })
-    // }, [commentList])
+    useEffect(() => {
+        // get comment list
+        const productID = match.params.id
+        const commentsRef = db.collection('Comments').where('productid', '==', productID).get().then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+                const commentListPromise = querySnapshot.docs.map((comment) => {
+                    const { userid } = comment.data()
+                    return db.collection('Users').doc(userid).get().then((user) => {
+                        console.log(user.data().displayName)
+                        return {
+                            username: user.data().displayName,
+                            rating: comment.data().rating,
+                            avatar: user.data().avatar,
+                            comment: comment.data().comment,
+                            imageList: comment.data().imageList
+                        }
+                    })
+                })
+                return Promise.all(commentListPromise)
+            }
+        }).then((newCommentList) => {
+            console.log(newCommentList)
+            setCommentList(newCommentList)
+        })
+    }, [])
 
 
     return (
