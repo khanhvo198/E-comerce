@@ -24,12 +24,12 @@ function CommentModal(props) {
             comment: comment,
             rating: parseInt(rating),
             productid: productid,
-            userid: user.userid,
+            userid: user.uid,
             imageList: [],
         }
         const ref = db.collection('Comments')
             .where('productid', '==', productid)
-            .where('userid', '==', user.userid)
+            .where('userid', '==', user.uid)
             .get().then((querySnapshot) => {
                 if (!querySnapshot.empty) {
                     querySnapshot.docs.forEach((doc) => {
