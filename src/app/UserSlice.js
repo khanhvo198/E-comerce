@@ -8,6 +8,7 @@ const UserSlice = createSlice({
         isLogin: false,
         userName: "",
         photoURL: "",
+        uid: ""
     },
 
     reducers: {
@@ -16,6 +17,7 @@ const UserSlice = createSlice({
             state.isLogin = action.payload.isLogin
             state.userName = action.payload.userName
             state.photoURL = action.payload.photoURL
+            state.uid = action.payload.uid
             localStorage.setItem("userInfo", JSON.stringify(state))
 
         },

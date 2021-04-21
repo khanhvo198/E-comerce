@@ -36,16 +36,38 @@ function App() {
       }
 
       // how to add only one time ???
-      const userRef = db.collection('Users').doc(user.uid).set({
-        displayName: user.displayName,
-        email: user.email,
-        avatar: user.photoURL,
-        phone: user.phoneNumber,
-      }).then(() => {
-        console.log('Add user successfully')
-      }).catch((error) => {
-        console.log('Add user error: ', error)
-      })
+
+
+      const userRef = db.collection("Users").doc(user.uid)
+      const doc = await  userRef.get()
+      if(!doc.exists) {
+        userRef.set({
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          phone: user.phoneNumber,
+          birthday: user.birthday,
+          gender: user.gender
+        }).then(() => {
+          console.log("Add user successfully")
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+
+      
+
+
+      // db.collection('Users').doc(user.uid).set({
+      //   displayName: user.displayName,
+      //   email: user.email,
+      //   avatar: user.photoURL,
+      //   phone: user.phoneNumber,
+      // }).then(() => {
+      //   console.log('Add user successfully')
+      // }).catch((error) => {
+      //   console.log('Add user error: ', error)
+      // })
 
 
 
@@ -55,7 +77,7 @@ function App() {
       // console.log('user token', token)
       // console.log(user.uid)
       const photoURL = user.photoURL
-      const action = signIn({isLogin: true, userName: user.displayName, photoURL: photoURL})
+      const action = signIn({isLogin: true, userName: user.displayName, photoURL: photoURL, uid: user.uid})
       dispatch(action)
 
     });
