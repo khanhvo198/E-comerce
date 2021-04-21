@@ -7,6 +7,7 @@ import { Container, Spinner } from "reactstrap"
 import CommentCard from "./CommentCard/CommentCard"
 import ProductCard from "./ProductCard/ProductCard"
 import RatingBlock from "./RatingBlock/RatingBlock"
+import { storage } from 'firebase/firebase.config'
 
 const ProductDetail = () => {
     let match = useRouteMatch()
@@ -14,27 +15,31 @@ const ProductDetail = () => {
     const [productInfo, setProductInfo] = useState(null)
     const [commentList, setCommentList] = useState([])
 
-    const [ratingList, setRatingList] = useState([5, 7, 2, 0, 2])
-
     useEffect(() => {
         // get product information
         const productID = match.params.id
-        const productRef = db.collection('Products').doc(productID).get().then((product) => {
-            const newProductInfo = { ...product.data() }
-            console.log(newProductInfo)
-            setProductInfo(newProductInfo)
+        db.collection('Products').doc(productID).get().then((product) => {
+            const storageRef = storage.ref()
+            storageRef.child(`images/products/${product.data().img}`).getDownloadURL().then((url) => {
+                console.log('Image URL: ', url)
+                const newProductInfo = { ...product.data(), img: url }
+                setProductInfo(newProductInfo)
+            }).catch((error) => {
+                console.log('Download Image Error', error)
+                const newProductInfo = { ...product.data(), img: "" }
+                setProductInfo(newProductInfo)
+            })
         })
     }, [])
 
     useEffect(() => {
         // get comment list
         const productID = match.params.id
-        const commentsRef = db.collection('Comments').where('productid', '==', productID).get().then((querySnapshot) => {
+        db.collection('Comments').where('productid', '==', productID).get().then((querySnapshot) => {
             if (!querySnapshot.empty) {
                 const commentListPromise = querySnapshot.docs.map((comment) => {
                     const { userid } = comment.data()
                     return db.collection('Users').doc(userid).get().then((user) => {
-                        console.log(user.data().displayName)
                         return {
                             username: user.data().displayName,
                             rating: comment.data().rating,
@@ -47,8 +52,7 @@ const ProductDetail = () => {
                 return Promise.all(commentListPromise)
             }
         }).then((newCommentList) => {
-            console.log(newCommentList)
-            setCommentList(newCommentList)
+            setCommentList(typeof newCommentList !== 'undefined' ? newCommentList : [])
         })
     }, [])
 
@@ -74,7 +78,7 @@ const ProductDetail = () => {
                         <div className='comment__header'>Comments</div>
                         <RatingBlock
                             ratingList={Array(Policy.MAX_RATING).fill(0).map((value, index) => {
-                                return commentList.filter((commentInfo) => commentInfo.rating == Policy.MAX_RATING - index).length
+                                return commentList.filter((commentInfo) => commentInfo.rating === Policy.MAX_RATING - index).length
                             })}
 
                             maxRating={Policy.MAX_RATING}
