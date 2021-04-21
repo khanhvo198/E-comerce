@@ -117,7 +117,7 @@ function App() {
           </Route>
 
           <Route path="/account">
-            <Account/>
+            <Account />
           </Route>
 
           <Route path="/checkout">
