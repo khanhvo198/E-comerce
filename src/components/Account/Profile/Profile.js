@@ -93,12 +93,9 @@ function Profile(props) {
     }
 
     const handleOnClickDeleteAddress = (index) => {
-        // console.log(userInfo.bookingAddress[index]) 
         const userRef = db.collection("Users").doc(user.uid)
-        // userInfo.bookingAddress = userInfo.bookingAddress.splice(index,1)
-        
-        console.log(userInfo)
-        setUserInfo(userInfo.bookingAddress.splice(index,1))
+        const bookingAddressSlice = userInfo.bookingAddress.filter((value,indexSlice) => indexSlice != index)
+        setUserInfo({...userInfo,bookingAddress: bookingAddressSlice})
         userRef.set(userInfo)
     }
 
