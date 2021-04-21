@@ -6,9 +6,9 @@ const UserSlice = createSlice({
     name: 'user',
     initialState: JSON.parse(localStorage.getItem("userInfo")) || {
         isLogin: false,
-        userid: "",
         userName: "",
         photoURL: "",
+        uid: ""
     },
 
     reducers: {
@@ -17,7 +17,7 @@ const UserSlice = createSlice({
             state.isLogin = action.payload.isLogin
             state.userName = action.payload.userName
             state.photoURL = action.payload.photoURL
-            state.userid = action.payload.userid
+            state.uid = action.payload.uid
             localStorage.setItem("userInfo", JSON.stringify(state))
 
         },
@@ -29,7 +29,7 @@ const UserSlice = createSlice({
                 isLogin: false,
                 userName: "",
                 photoURL: "",
-                userid: "",
+                uid: "",
             }
 
         }

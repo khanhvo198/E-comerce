@@ -77,7 +77,6 @@ const Header = () => {
                             direction="down"
                             onMouseEnter={toggle}
                             onMouseLeave={toggle}
-                            onMouseBlur={toggle}
                             >
                             <DropdownToggle style={{backgroundColor:'inherit',border:'none'}}>
                                 <div className="user-info">

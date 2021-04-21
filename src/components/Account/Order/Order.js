@@ -18,7 +18,7 @@ function Order(props) {
     const toDateTime = (seconds) => new Date(seconds * 1000).toString()
 
     useEffect(() => {
-        db.collection('Orders').where('userid', '==', user.userid).get().then((querySnapshot) => {
+        db.collection('Orders').where('userid', '==', user.uid).get().then((querySnapshot) => {
             if (!querySnapshot.empty) {
                 const orderListPromise = querySnapshot.docs.map((order) => {
                     const { items, userid, orderTime, deliverTime, status } = order.data()
