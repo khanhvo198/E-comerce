@@ -55,7 +55,7 @@ function App() {
       // console.log('user token', token)
       // console.log(user.uid)
       const photoURL = user.photoURL
-      const action = signIn({isLogin: true, userName: user.displayName, photoURL: photoURL})
+      const action = signIn({ isLogin: true, userid: user.uid, userName: user.displayName, photoURL: photoURL })
       dispatch(action)
 
     });
@@ -95,7 +95,7 @@ function App() {
           </Route>
 
           <Route path="/account">
-            <Account/>
+            <Account />
           </Route>
 
           <Route path="/checkout">
