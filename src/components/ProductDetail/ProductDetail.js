@@ -21,7 +21,6 @@ const ProductDetail = () => {
         db.collection('Products').doc(productID).get().then((product) => {
             const storageRef = storage.ref()
             storageRef.child(`images/products/${product.data().img}`).getDownloadURL().then((url) => {
-                console.log('Image URL: ', url)
                 const newProductInfo = { ...product.data(), img: url }
                 setProductInfo(newProductInfo)
             }).catch((error) => {
@@ -37,22 +36,38 @@ const ProductDetail = () => {
         const productID = match.params.id
         db.collection('Comments').where('productid', '==', productID).get().then((querySnapshot) => {
             if (!querySnapshot.empty) {
+                // load comment list from firestore
                 const commentListPromise = querySnapshot.docs.map((comment) => {
                     const { userid } = comment.data()
+                    // get comment of each user
                     return db.collection('Users').doc(userid).get().then((user) => {
-                        return {
-                            username: user.data().displayName,
-                            rating: comment.data().rating,
-                            avatar: user.data().avatar,
-                            comment: comment.data().comment,
-                            imageList: comment.data().imageList
-                        }
+                        const storageRef = storage.ref()
+                        // load image list of each user comment from firebae storage
+                        const imageListPromise = comment.data().imageList.map((imgName) => (
+                            storageRef.child(`images/comments/${imgName}`).getDownloadURL().then((url) => url)
+                                .catch((error) => {
+                                    console.log('Download Image Error: ', error)
+                                    return ""
+                                })
+                        ))
+                        // when load image list finished, return user comment
+                        return Promise.all(imageListPromise).then((newImageList) => (
+                            {
+                                username: user.data().displayName,
+                                rating: comment.data().rating,
+                                avatar: user.data().avatar,
+                                comment: comment.data().comment,
+                                imageList: newImageList
+                            }
+                        ))
                     })
                 })
-                return Promise.all(commentListPromise)
+
+                // when load comment finished, set new comment list
+                Promise.all(commentListPromise).then((newCommentList) => {
+                    setCommentList(typeof newCommentList !== 'undefined' ? newCommentList : [])
+                })
             }
-        }).then((newCommentList) => {
-            setCommentList(typeof newCommentList !== 'undefined' ? newCommentList : [])
         })
     }, [])
 
