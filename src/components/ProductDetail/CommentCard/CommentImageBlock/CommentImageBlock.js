@@ -13,6 +13,7 @@ function CommentImageBlock(props) {
     const { imageList, interval } = props;
     const [activeIndex, setActiveIndex] = useState(0)
     const [animating, setAnimating] = useState(false)
+    const [visible, setVisible] = useState(false)
 
     const next = () => {
         if (animating) return;
@@ -46,20 +47,20 @@ function CommentImageBlock(props) {
                 <img className="image-slider__image" src={src} />
             </CarouselItem>
         )
-
     })
 
     const indexChangeAnimation = (newIndex) => {
         if (animating) return;
-        $('.image-list div').css('border', 'none')
-        const isVisible = $('.image-slider').is(':visible')
-        if ((newIndex === activeIndex && !isVisible) || (newIndex != activeIndex)) {
-            $('.image-slider').show()
-            $(`#image-list-${newIndex}`).css('border', '1px solid red')
+        if ((newIndex === activeIndex && !visible) || (newIndex != activeIndex)) {
+            setVisible(true)
         }
-        if (newIndex === activeIndex && isVisible) {
-            $('.image-slider').hide()
+        if (newIndex === activeIndex && visible) {
+            setVisible(false)
         }
+    }
+
+    const border = (index) => {
+        return `${index === activeIndex && visible ? "1px solid red" : "none"}`
     }
 
 
@@ -67,21 +68,24 @@ function CommentImageBlock(props) {
         <div>
             <div className='image-list'>
                 {imageList.map((src, index) => (
-                    <div key={index} id={`image-list-${index}`}><img src={src} onClick={() => goToIndex(index)} /></div>
+                    <div key={index} style={{ border: border(index) }} onClick={() => goToIndex(index)} ><img src={src} /></div>
                 ))}
             </div>
-            <Carousel
-                activeIndex={activeIndex}
-                next={next}
-                previous={previous}
-                interval={interval}
-                className='image-slider'
-            >
-                <CarouselIndicators items={imageList} activeIndex={activeIndex} onClickHandler={goToIndex} />
-                {slides}
-                <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-                <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-            </Carousel>
+            {visible
+                ? <Carousel
+                    activeIndex={activeIndex}
+                    next={next}
+                    previous={previous}
+                    interval={interval}
+                    className='image-slider'
+                >
+                    <CarouselIndicators items={imageList} activeIndex={activeIndex} onClickHandler={goToIndex} />
+                    {slides}
+                    <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+                    <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+                </Carousel>
+                : null
+            }
         </div >
     )
 
