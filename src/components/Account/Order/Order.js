@@ -13,50 +13,35 @@ Order.propTypes = {
 function Order(props) {
     const [orderList, setOrderList] = useState([])
     const user = useSelector(state => state.user)
-    // const order = orderList[0]
-
-    const toDateTime = (seconds) => new Date(seconds * 1000).toString()
 
     useEffect(() => {
         db.collection('Orders').where('userid', '==', user.uid).get().then((querySnapshot) => {
             if (!querySnapshot.empty) {
-                const orderListPromise = querySnapshot.docs.map((order) => {
-                    const { items, userid, orderTime, deliverTime, status } = order.data()
+                const orderListPromise = querySnapshot.docs.map((orderDoc) => {
+                    const { items, userid, orderTime, deliverTime, status, address, phone, receiver } = orderDoc.data()
                     const itemsPromise = items.map((item) => {
                         // get item title, image
-                        return db.collection('Products').doc(item.productid).get().then((product) => {
-                            const storageRef = storage.ref()
-                            return storageRef.child(`images/products/${product.data().img}`).getDownloadURL()
-                                .then((url) => (
-                                    {
-                                        title: product.data().title,
-                                        price: item.price,
-                                        quantity: item.quantity,
-                                        img: url,
-                                        productid: product.id,
-                                    }
-                                ))
-                                .catch((error) => {
-                                    console.log("Downoad Image Error: ", error)
-                                    return {
-                                        title: product.data().title,
-                                        price: item.price,
-                                        quantity: item.quantity,
-                                        img: "",
-                                        productid: product.id,
-                                    }
-                                })
-                        })
+                        return db.collection('Products').doc(item.productid).get().then((productDoc) => (
+                            {
+                                title: productDoc.data().title,
+                                img: productDoc.data().img,
+                                price: item.price,
+                                quantity: item.quantity,
+                                productid: productDoc.id,
+                            }
+                        ))
                     })
 
                     // return order
                     return Promise.all(itemsPromise).then((newItems) => (
-
                         {
-                            userid: userid,
+                            id: orderDoc.id,
+                            receiver: receiver,
                             orderTime: orderTime,
                             deliverTime: deliverTime,
                             status: status,
+                            address: address,
+                            phone: phone,
                             items: newItems,
                         }
                     ))
@@ -83,17 +68,22 @@ function Order(props) {
                         <Row className="order__header">
                             <Col xs="9" className="header__time">
                                 <p><b>Order</b> <span className="order__id">{order.id}</span></p>
-                                <p className="order__date--time">Placed on {toDateTime(order.orderTime.seconds)} </p>
+                                <p className="order__date--time">Placed on {order.orderTime} </p>
+                                <p className="order__date--address">Address: {order.address} </p>
+                                <p className="order__date--receiver">Receiver: {order.receiver} </p>
+                                <p className="order__date--phone">Phone: {order.phone} </p>
                             </Col>
                             <Col xs="1" className="header__total" >
+                                <p><b>Total</b></p>
                                 <p>
                                     {order.items.reduce((total, item) => (
                                         total + item.price * item.quantity
                                     ), 0)}$
                                 </p>
                             </Col>
-                            <Col xs="2" className="header__delivered">
-                                <p>Delivered</p>
+                            <Col xs="2">
+                                <p><b>Status</b></p>
+                                <p className="header__status">Delivered</p>
                             </Col>
                         </Row>
                         {order.items.map((orderItem) => (

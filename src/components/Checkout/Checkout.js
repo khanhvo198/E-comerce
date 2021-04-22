@@ -2,11 +2,12 @@ import { Button, Form, FormGroup, Input, InputGroup, Label } from "reactstrap"
 import Images from "constants/images"
 import { useDispatch, useSelector } from "react-redux"
 import { Col, Container, Row } from "reactstrap"
-import {Link, useHistory} from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import './Checkout.css'
 import { useEffect, useState } from "react"
 import db from "firebase/firebase.config"
-import {clearCart} from 'feature/Cart/CartSlice'
+import { clearCart } from 'feature/Cart/CartSlice'
+import { current } from "immer"
 const Checkout = () => {
 
     const cart = useSelector(state => state.cart)
@@ -21,12 +22,12 @@ const Checkout = () => {
             const currentUser = await db.collection("Users").doc(user.uid).get()
             const doc = currentUser.data().bookingAddress
             setBookingAddressList(doc)
-            setCurrentAddress({...doc[0]})
+            setCurrentAddress({ ...doc[0] })
             // setCurrentUser({...user.data()})
             // console.log(currentUser.data().bookingAddress)
         }
         fetchAddressList()
-    },[])
+    }, [])
 
     const handleSelectAddress = (event) => {
         const addressSelect = event.target.value
@@ -38,14 +39,14 @@ const Checkout = () => {
         // console.log(address)
         setCurrentAddress(address[0])
         // console.log(currentAddress)
-    } 
+    }
 
     const handleOnClickOrder = () => {
 
         const orderCart = cart.map((item) => (
             {
                 productid: item.id,
-                price:item.price,
+                price: item.price,
                 quantity: item.quantity
             }
         ))
@@ -57,9 +58,9 @@ const Checkout = () => {
             userid: user.uid,
             deliverTime: "",
             address: currentAddress.address,
-            phone: currentAddress.phone
-
-        }). then(() => {
+            phone: currentAddress.phone,
+            receiver: currentAddress.fullname,
+        }).then(() => {
             const action = clearCart()
             dispatch(action)
             history.push("/account/order")
@@ -72,7 +73,7 @@ const Checkout = () => {
     return (
         <Container className="checkout">
             {
-                cart.map( (item,index) => (
+                cart.map((item, index) => (
                     <Row className="checkout__item" key={index}>
                         <Col xs="3" className="checkout__item--image">
                             <img src={Images.THUMBNAIL} />
@@ -101,15 +102,15 @@ const Checkout = () => {
                 <div className="information">
                     <Row className="checkout__address">
                         <Col xs='10' className="checkout__address--detail">
-                                <FormGroup>
-                                    <Label for="address"><b>Address:</b></Label>
-                                    <Input type="select" onChange={event => handleSelectAddress(event)}>
-                                        {/* {console.log(bookingAddressList)} */}
-                                        {bookingAddressList.map((item,index) => (
-                                            <option value={item.address}>{item.address}</option>
-                                        ))}
-                                    </Input>
-                                </FormGroup>
+                            <FormGroup>
+                                <Label for="address"><b>Address:</b></Label>
+                                <Input type="select" onChange={event => handleSelectAddress(event)}>
+                                    {/* {console.log(bookingAddressList)} */}
+                                    {bookingAddressList.map((item, index) => (
+                                        <option value={item.address}>{item.address}</option>
+                                    ))}
+                                </Input>
+                            </FormGroup>
 
                         </Col>
                         <Col xs='2' className="checkout__address-button"><Link to='/account'>Edit</Link></Col>
@@ -119,7 +120,7 @@ const Checkout = () => {
                         <span><b>Phone:</b> {currentAddress.phone}</span>
                     </Row>
                     <Row className="checkout__total">
-                        <span><b>Total Price: {cart?.reduce((amount,item) => amount + item.price*item.quantity, 0)}$</b></span>
+                        <span><b>Total Price: {cart?.reduce((amount, item) => amount + item.price * item.quantity, 0)}$</b></span>
                     </Row>
                     <Row className="checkout__voucher">
                         <span><b>Voucher:</b> Freeship </span>
@@ -127,11 +128,11 @@ const Checkout = () => {
                 </div>
             </Row>
             <Row className="checkout__button">
-                <Button color='none' className="checkout__button--order" onClick = {handleOnClickOrder}>ORDER</Button>
+                <Button color='none' className="checkout__button--order" onClick={handleOnClickOrder}>ORDER</Button>
             </Row>
-            
+
         </Container>
-        
+
 
     )
 
