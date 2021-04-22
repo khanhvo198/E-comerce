@@ -8,6 +8,7 @@ import firebase from 'firebase'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { useDispatch, useSelector } from "react-redux"
 import { signOut } from "app/UserSlice"
+import NavBar from "components/NavBar/NavBar"
 
 
 const Header = () => {
@@ -50,7 +51,7 @@ const Header = () => {
 
 
     return (
-
+        <>
         <Row className="header">
             <Col xs="2" className="header--link__brand">
                 <Link to='/' style={{ textDecoration: 'none', color: 'inherit', alignSelf: 'center' }} >
@@ -119,6 +120,8 @@ const Header = () => {
                 </List>
             </Col>
         </Row>
+        <NavBar/>
+        </>
 
     )
 

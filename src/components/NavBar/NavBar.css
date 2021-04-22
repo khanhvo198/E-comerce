@@ -1,0 +1,26 @@
+img {
+    max-width: 100%;
+}
+
+.container-brand {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.item-container {
+    display: flex;
+}
+
+.item-container > p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.a {
+    height: 100%;
+}
+
+

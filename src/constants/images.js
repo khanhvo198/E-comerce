@@ -7,6 +7,18 @@ import macbookComment3 from 'assets/images/macbook_comment_3.jpg';
 import macbookComment4 from 'assets/images/macbook_comment_4.jpg';
 import macbook_thumbnail from 'assets/images/thumbnail.jpeg'
 import slider from 'assets/images/slider.jpeg'
+import apple from 'assets/images/apple.png'
+import asus from 'assets/images/asus.png'
+import dell from 'assets/images/dell.png'
+import hp from 'assets/images/hp.png'
+import huawei from 'assets/images/huawei.png'
+import lenovo from 'assets/images/lenovo.png'
+import lg from 'assets/images/lg.png'
+import vaio from 'assets/images/vaio.png'
+import xiaomi from 'assets/images/xiaomi_2.png'
+
+
+
 const Images = {
     MAC_BOOK_PRO: macbookPro,
     SHIN_AVATAR: shinAvatar,
@@ -16,7 +28,16 @@ const Images = {
     MAC_BOOK_COMMENT_3: macbookComment3,
     MAC_BOOK_COMMENT_4: macbookComment4,
     THUMBNAIL:macbook_thumbnail,
-    SLIDER: slider
+    SLIDER: slider,
+    APPLE_BRAND: apple,
+    ASUS_BRAND: asus,
+    DELL_BRAND: dell,
+    HP_BRAND: hp,
+    HUAWEI_BRAND: huawei,
+    LENOVO_BRAND: lenovo,
+    LG_BRAND: lg,
+    VAIO_BRAND: vaio,
+    XIAOMI_BRAND: xiaomi,
 }
 
 export default Images;
