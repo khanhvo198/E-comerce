@@ -15,8 +15,13 @@
     color: blue;
 }
 
-.order__date--time {
+.order__date--time,
+.order__date--address,
+.order__date--receiver,
+.order__date--phone {
     color: #6f6b6b;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
 }
 
 .order__list--header {
@@ -27,7 +32,7 @@
     font-weight: 700;
 }
 
-.header__delivered {
+.header__status {
     color: blue;
 }
 

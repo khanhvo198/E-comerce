@@ -18,7 +18,7 @@ import './ProductCard.scss';
 // };
 
 function ProductCard(props) {
-    const { title, rating, numComments, numItemsSold, price, img, specification } = props
+    const { title, commentList, numItemsSold, price, img, specification } = props
     const { brand, cpu, Ram, storage, design, size, guarantee } = specification
     const [quantity, setQuantity] = useState(1);
     const cart = useSelector(state => state.cart)
@@ -56,8 +56,9 @@ function ProductCard(props) {
         setQuantity(quantity - 1)
     }
 
-    const capitalize = (string) => {
-        return string.charAt(0).toUpperCase() + string.slice(1)
+    const rating = () => {
+        const numRating = commentList.length || 10e4
+        return Math.round(commentList.reduce((sum, comment) => (sum + comment.rating), 0) / numRating)
     }
 
     return (
@@ -77,12 +78,12 @@ function ProductCard(props) {
                         <div className='productcard__info__statistic'>
                             {/* href MUST be #comment-card for correct linking to CommentCard */}
                             <a href='#comment-card' className='productcard__info__rating'>
-                                <div className='productcard__info__statistic__number'>{rating}</div>
-                                <Rating rating={rating} />
+                                <div className='productcard__info__statistic__number'>{rating()}</div>
+                                <Rating rating={rating()} />
                             </a>
                             <div>|</div>
                             {/* href MUST be #comment-card for correct linking to CommentCard */}
-                            <a href='#comment-card' className='productcard__info__comment'><span className='productcard__info__statistic__number'>{numComments}</span><span>comments</span></a>
+                            <a href='#comment-card' className='productcard__info__comment'><span className='productcard__info__statistic__number'>{commentList.length}</span><span>comments</span></a>
                             <div>|</div>
                             <div className='productcard__info__itemsold'><span className='productcard__info__statistic__number'>{numItemsSold}</span><span>items sold</span></div>
                         </div>

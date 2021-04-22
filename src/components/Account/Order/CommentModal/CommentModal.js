@@ -53,8 +53,11 @@ function CommentModal(props) {
                     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                     uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                         console.log('File available at', downloadURL);
-                        console.log("Upload Comment Success")
-                        toggle()
+                        db.collection('Products').doc(productid).collection('Comments').doc(user.uid).update({
+                            imageList: firebase.firestore.FieldValue.arrayUnion(downloadURL)
+                        }).then(() => {
+                            console.log("Update URL Success")
+                        })
                     });
                 }
             );
@@ -70,35 +73,24 @@ function CommentModal(props) {
         const data = {
             comment: comment,
             rating: parseInt(rating),
-            productid: productid,
-            userid: user.uid,
-            imageList: filesUpload.map((file) => (
-                file.name
-            )),
+            // imageList: filesUpload.map((file) => (
+            //     file.name
+            // )),
         }
-        const ref = db.collection('Comments')
-            .where('productid', '==', productid)
-            .where('userid', '==', user.uid)
-            .get().then((querySnapshot) => {
-                if (!querySnapshot.empty) {
-                    querySnapshot.docs.forEach((doc) => {
-                        db.collection('Comments').doc(doc.id).set(data).then(() => {
-                            uploadFiles(filesUpload)
-                        })
-                    })
-                } else {
-                    db.collection('Comments').add(data).then((doc) => {
-                        // console.log("Document ID: ", doc.id)
-                        // toggle()
-                        uploadFiles(filesUpload)
-                    })
-                }
+        db.collection('Products')
+            .doc(productid)
+            .collection('Comments')
+            .doc(user.uid)
+            .set(data).then(() => {
+                uploadFiles(filesUpload)
             }).catch((error) => {
                 console.log("Upload Comment Error: ", error)
             }).finally(() => {
                 setFiles([])
+                toggle()
             })
     }
+
     const handleRatingChange = (e) => {
         e.preventDefault()
         setRating(e.target.value)
