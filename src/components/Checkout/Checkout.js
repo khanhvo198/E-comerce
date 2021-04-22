@@ -1,17 +1,20 @@
 import { Button, Form, FormGroup, Input, InputGroup, Label } from "reactstrap"
 import Images from "constants/images"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Col, Container, Row } from "reactstrap"
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import './Checkout.css'
 import { useEffect, useState } from "react"
 import db from "firebase/firebase.config"
+import {clearCart} from 'feature/Cart/CartSlice'
 const Checkout = () => {
 
     const cart = useSelector(state => state.cart)
     const user = useSelector(state => state.user)
     const [bookingAddressList, setBookingAddressList] = useState([{}])
     const [currentAddress, setCurrentAddress] = useState({})
+    const dispatch = useDispatch()
+    const history = useHistory()
 
     useEffect(() => {
         const fetchAddressList = async () => {
@@ -53,6 +56,13 @@ const Checkout = () => {
             status: "Processing",
             userid: user.uid,
             deliverTime: "",
+            address: currentAddress.address,
+            phone: currentAddress.phone
+
+        }). then(() => {
+            const action = clearCart()
+            dispatch(action)
+            history.push("/account/order")
 
         })
     }
@@ -105,7 +115,7 @@ const Checkout = () => {
                         <Col xs='2' className="checkout__address-button"><Link to='/account'>Edit</Link></Col>
                     </Row>
                     <Row className="checkout__phone">
-                        {console.log(currentAddress)}
+                        {/* {console.log(currentAddress)} */}
                         <span><b>Phone:</b> {currentAddress.phone}</span>
                     </Row>
                     <Row className="checkout__total">
