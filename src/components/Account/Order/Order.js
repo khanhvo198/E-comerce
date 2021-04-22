@@ -1,9 +1,10 @@
-import Images from 'constants/images';
+import db, { storage } from 'firebase/firebase.config';
 import React, { useEffect, useState } from 'react';
-import { Col, Container, Row } from 'reactstrap';
-import './Order.css';
-import db from 'firebase/firebase.config';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import { Col, Container, Row } from 'reactstrap';
+import CommentModal from './CommentModal/CommentModal';
+import './Order.css';
 
 Order.propTypes = {
 
@@ -22,14 +23,30 @@ function Order(props) {
                 const orderListPromise = querySnapshot.docs.map((order) => {
                     const { items, userid, orderTime, deliverTime, status } = order.data()
                     const itemsPromise = items.map((item) => {
-                        // get item title
-                        return db.collection('Products').doc(item.productid).get().then((product) => (
-                            {
-                                title: product.data().title,
-                                price: item.price,
-                                quantity: item.quantity,
-                            }
-                        ))
+                        // get item title, image
+                        return db.collection('Products').doc(item.productid).get().then((product) => {
+                            const storageRef = storage.ref()
+                            return storageRef.child(`images/products/${product.data().img}`).getDownloadURL()
+                                .then((url) => (
+                                    {
+                                        title: product.data().title,
+                                        price: item.price,
+                                        quantity: item.quantity,
+                                        img: url,
+                                        productid: product.id,
+                                    }
+                                ))
+                                .catch((error) => {
+                                    console.log("Downoad Image Error: ", error)
+                                    return {
+                                        title: product.data().title,
+                                        price: item.price,
+                                        quantity: item.quantity,
+                                        img: "",
+                                        productid: product.id,
+                                    }
+                                })
+                        })
                     })
 
                     // return order
@@ -52,6 +69,11 @@ function Order(props) {
         })
     }, [])
 
+    const history = useHistory()
+    const handleImageClick = (productid) => {
+        history.push(`/product/${productid}`)
+    }
+
     return (
         <div className='order__list'>
             <Container>
@@ -67,7 +89,7 @@ function Order(props) {
                                 <p>
                                     {order.items.reduce((total, item) => (
                                         total + item.price * item.quantity
-                                    ), 0)}
+                                    ), 0)}$
                                 </p>
                             </Col>
                             <Col xs="2" className="header__delivered">
@@ -75,9 +97,13 @@ function Order(props) {
                             </Col>
                         </Row>
                         {order.items.map((orderItem) => (
-                            <Row className="order__detail">
+                            <Row className="order__detail" key={orderItem.productid}>
                                 <Col xs="2" className="item__thumbnail">
-                                    <img className="item__image" src={Images.THUMBNAIL} />
+                                    <img
+                                        className="item__image"
+                                        src={orderItem.img}
+                                        onClick={() => { handleImageClick(orderItem.productid) }}
+                                    />
                                 </Col>
                                 <Col xs="7" className="item__information">
                                     <p className="item__title">{orderItem.title}</p>
@@ -85,11 +111,12 @@ function Order(props) {
 
                                 </Col>
                                 <Col xs="1" className="item__price">
-                                    <p>{orderItem.price}</p>
+                                    <p>{orderItem.price}$</p>
                                 </Col>
 
                                 <Col xs="2" className="item__comment">
-                                    <p>Comment</p>
+                                    {/* <p>Comment</p> */}
+                                    <CommentModal label='Comment' title={orderItem.title} productid={orderItem.productid} />
                                 </Col>
                             </Row>
                         ))}
