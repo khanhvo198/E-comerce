@@ -16,10 +16,12 @@ function CommentModal(props) {
 
     const [rating, setRating] = useState(Policy.MAX_RATING)
     const [comment, setComment] = useState('')
+    const [files, setFiles] = useState([])
     const user = useSelector(state => state.user)
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        console.log("Files: ", files)
         const data = {
             comment: comment,
             rating: parseInt(rating),
@@ -58,6 +60,11 @@ function CommentModal(props) {
         setComment(e.target.value)
     }
 
+    const handleFilesChange = (e) => {
+        e.preventDefault()
+        setFiles([...e.target.files])
+    }
+
     return (
         <div className='comment-modal'>
             <Button color='primary' onClick={toggle}>{label}</Button>
@@ -84,6 +91,14 @@ function CommentModal(props) {
                                 defaultValue={""}
                                 placeholder="Type your comment here ..."
                                 onChange={handleCommentChange} />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for={`comment${productid}`}>Comment:</Label>
+                            <Input
+                                type="file"
+                                multiple
+                                name="files"
+                                onChange={handleFilesChange} />
                         </FormGroup>
                     </Form>
                 </ModalBody>
