@@ -21,7 +21,7 @@ const ProductDetail = () => {
         db.collection('Products').doc(productID).get().then((product) => {
             const storageRef = storage.ref()
             storageRef.child(`images/products/${product.data().img}`).getDownloadURL().then((url) => {
-                const newProductInfo = { ...product.data(), img: url }
+                const newProductInfo = { ...product.data(), img: url, id:product.id }
                 setProductInfo(newProductInfo)
             }).catch((error) => {
                 console.log('Download Image Error', error)
