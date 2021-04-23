@@ -46,9 +46,9 @@ function App() {
           displayName: user.displayName,
           email: user.email,
           photoURL: user.photoURL,
-          phone: user.phoneNumber,
-          birthday: user.birthday,
-          gender: user.gender
+          phone: user.phoneNumber ? user.phoneNumber : '',
+          birthday: user.birthday ? user.birthday : '',
+          gender: user.gender ? user.gender : ''
         }).then(() => {
           console.log("Add user successfully")
         }).catch(err => {
