@@ -1,6 +1,5 @@
 import Slider from "components/Slider/Slider";
 import Images from "constants/images";
-import { database } from "../../firebase/firebase";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
@@ -11,6 +10,8 @@ import "./Home.scss";
 // import firebase from "firebase/app"
 import 'firebase/firestore'
 import Filter from "components/Filter/FIlter";
+// import { database } from "firebase/firebase";
+import db from "firebase/firebase.config";
 const Home = () => {
 
 
@@ -188,7 +189,7 @@ const Home = () => {
     const [productList, setProductList] = useState([])
 
     // 
-    const [currentProductList,setCurrentProductList] = useState([{}])
+    const [currentProductList,setCurrentProductList] = useState([])
 
 
     const [currentPage, setCurrentPage] = useState(1)
@@ -198,34 +199,32 @@ const Home = () => {
         // Implement useEffect in order to fetch API and get productList
         const fetchProductList = async () => {
             try {
-                const snapshot = await database.collection("Products").get()
+                const snapshot = await db.collection("Products").get()
                 const result = []
                 snapshot.forEach(doc => {
                     result.push({ ...doc.data(), id: doc.id })
+
                 })
-                console.log("Product List: ", result)
+                // console.log("Product List: ", result)
                 setProductList(result)
-                const indexOfLastProduct = currentPage * 16
-                const indexOfFirstProduct = indexOfLastProduct - 16
-                setCurrentProductList(productList.slice(indexOfFirstProduct, indexOfLastProduct))
-                console.log(currentProductList)
+                // console.log(productList)
             } catch (err) {
                 console.log("Get Products Error: ", err)
             }
         }
         fetchProductList()
 
-    }, [currentPage])
+    }, [])
 
-    // useEffect(() => {
-    //     const indexOfLastProduct = currentPage * 16
-    //     const indexOfFirstProduct = indexOfLastProduct - 16
-    //     setCurrentProductList(productList.slice(indexOfFirstProduct, indexOfLastProduct))
-    // },[currentPage])
+    useEffect(() => {
+        const indexOfLastProduct = currentPage * 16
+        const indexOfFirstProduct = indexOfLastProduct - 16
+        setCurrentProductList(productList.slice(indexOfFirstProduct, indexOfLastProduct))
+    },[productList,currentPage])
 
     // const indexOfLastProduct = currentPage * 16
     // const indexOfFirstProduct = indexOfLastProduct - 16
-    // // const currentProductList = (productList.slice(indexOfFirstProduct, indexOfLastProduct))
+    // const currentProductList = (productList.slice(indexOfFirstProduct, indexOfLastProduct))
     // setCurrentProductList([...productList.slice(indexOfFirstProduct, indexOfLastProduct)])
 
 
@@ -239,11 +238,11 @@ const Home = () => {
 
     const handleOnChangeFilter = (isLowToHigh) => {
         if(isLowToHigh) {
-            // currentProductList = [...currentProductList.sort((a,b) => a.price > b.price)]
-            setCurrentProductList(currentProductList.sort((a,b) => a.price > b.price))
-            console.log(currentProductList)
+            const productListSorted = productList.sort((a,b) => a.price - b.price)
+            setProductList([...productListSorted])
         } else {
-
+            const productListSorted = productList.sort((a,b) => b.price - a.price)
+            setProductList([...productListSorted])
         }
     }
 
@@ -289,7 +288,6 @@ const Home = () => {
                 <PaginationProduct
                     totalProducts={productList.length}
                     paginate={paginate}
-
                 />
             </div>
         </Container>

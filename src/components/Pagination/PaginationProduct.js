@@ -33,6 +33,7 @@ const PaginationProduct = ({totalProducts,paginate}) => {
                         </PaginationLink>
                     </PaginationItem>
                 ))
+
             }
 
             {/* <PaginationItem>

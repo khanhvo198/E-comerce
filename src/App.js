@@ -9,10 +9,10 @@ import Account from 'components/Account/Account';
 import Checkout from 'components/Checkout/Checkout';
 import Login from 'components/Login/Login';
 import React, { lazy, useEffect } from 'react';
-import firebase from './firebase/firebase'
+// import firebase from './firebase/firebase'
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'app/UserSlice';
-import db from 'firebase/firebase.config'
+import db, { storage, firebase } from 'firebase/firebase.config'
 import Search from 'components/Search/Search';
 
 function App() {

@@ -27,7 +27,7 @@ const Filter = ({onChangeFilter}) => {
                     <Nav className="mr-auto" navbar>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
-                                Filter by Price
+                                Price
                             </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem onClick={() => onChangeFilter(true)}>
