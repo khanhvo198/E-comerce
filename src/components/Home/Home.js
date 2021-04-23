@@ -7,7 +7,7 @@ import { Col, Container, Row } from "reactstrap";
 import Category from "../Category/Category";
 import PaginationProduct from "../Pagination/PaginationProduct";
 import Product from "../Product/Product";
-import "./Home.css";
+import "./Home.scss";
 // import firebase from "firebase/app"
 import 'firebase/firestore'
 import Filter from "components/Filter/FIlter";
@@ -203,13 +203,14 @@ const Home = () => {
                 snapshot.forEach(doc => {
                     result.push({ ...doc.data(), id: doc.id })
                 })
+                console.log("Product List: ", result)
                 setProductList(result)
                 const indexOfLastProduct = currentPage * 16
                 const indexOfFirstProduct = indexOfLastProduct - 16
                 setCurrentProductList(productList.slice(indexOfFirstProduct, indexOfLastProduct))
                 console.log(currentProductList)
             } catch (err) {
-                console.log(err)
+                console.log("Get Products Error: ", err)
             }
         }
         fetchProductList()
@@ -249,6 +250,7 @@ const Home = () => {
 
     return (
         <Container className="home">
+            {console.log("Current Product List: ", currentProductList)}
             {/* {console.log(currentProductList)} */}
             <Row className="home__banner">
                 <Col xs='8' className="home__banner--left pl-0 pr-0 pb-1" >
@@ -263,7 +265,6 @@ const Home = () => {
                 <Filter
                     onChangeFilter={handleOnChangeFilter}
                 />
-
             </div>
             {/* <div>
                 <Category />
@@ -271,10 +272,10 @@ const Home = () => {
             <div className="home__container">
                 <Row className="home__row">
                     {currentProductList.map((product) => (
-                        <Col xs="3" key={product.id} >
+                        <Col key={product.id} >
                             <Link to={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                 <Product
-                                    image={Images.MAC_BOOK_PRO}
+                                    image={product.img}
                                     title={product.title}
                                     price={product.price}
                                     rating={product.rating}

@@ -68,6 +68,8 @@ function CommentModal(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        // prepare data
         const filesUpload = files.map((file) => (
             new File([file], getFileName(file.name))
         ))
@@ -75,11 +77,13 @@ function CommentModal(props) {
             comment: comment,
             rating: parseInt(rating),
         }
-        db.collection('Products')
-            .doc(productid)
-            .collection('Comments')
-            .doc(user.uid)
-            .set(data, { merge: true }).then(() => {
+
+        const commentRef = db.collection('Products').doc(productid).collection('Comments')
+
+        // upload comment
+        commentRef.doc(user.uid).set(data, { merge: true })
+            .then(() => {
+                // upload comment images
                 uploadFiles(filesUpload)
             }).catch((error) => {
                 console.log("Upload Comment Error: ", error)
@@ -87,6 +91,27 @@ function CommentModal(props) {
                 setFiles([])
                 toggleModal()
             })
+
+        // update product average rating
+        commentRef.get().then(async (querySnapshot) => {
+            if (!querySnapshot.empty) {
+                const commentListPromise = querySnapshot.docs.map((doc) => doc.data().rating)
+                Promise.all(commentListPromise).then((commentList) => {
+                    const averageRating = Math.round(
+                        commentList.reduce((sum, comment) => sum + comment.rating) / commentList.length
+                    )
+
+                    db.collection('Products').doc(productid)
+                        .update({ rating: averageRating })
+                        .then(() => {
+                            console.log("Update Rating Success")
+                        })
+                        .catch((error) => {
+                            console.log("Update Rating Error: ", error)
+                        })
+                })
+            }
+        })
     }
 
     const handleRatingChange = (index) => {
