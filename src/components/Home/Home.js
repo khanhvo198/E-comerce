@@ -10,6 +10,7 @@ import Product from "../Product/Product";
 import "./Home.css";
 // import firebase from "firebase/app"
 import 'firebase/firestore'
+import Filter from "components/Filter/FIlter";
 const Home = () => {
 
 
@@ -187,7 +188,7 @@ const Home = () => {
     const [productList, setProductList] = useState([])
 
     // 
-    // const [currentProductList,setCurrentProductList] = useState([])
+    const [currentProductList,setCurrentProductList] = useState([{}])
 
 
     const [currentPage, setCurrentPage] = useState(1)
@@ -197,54 +198,34 @@ const Home = () => {
         // Implement useEffect in order to fetch API and get productList
         const fetchProductList = async () => {
             try {
-                // const response = await productApi.getAll()
-                // console.log(response)
-                // setProductList(response)
-                // const snapshot = await database.ref('Products').get()
-                // const productListFromFireStore = []
-                // snapshot.forEach(doc => {
-                //     productListFromFireStore.push({id: doc.id , data:doc.data()})
-                // });
-                // console.log(productListFromFireStore)
-                // setProductList(productListFromFireStore)
-
-
-                // firebase.firestore().ref("Products").get().then((snapshot) => {
-                //     console.log(snapshot.val())
-                // })
-                // database
-                //     .ref()
-                //     .child("Products")
-                //     .get()
-                //     .then((snapshot) => {
-                //         if(snapshot.exists()) {
-                //             console.log(snapshot.val())
-                //         } else {
-                //             console.log("No data")
-                //         }
-                //     })
-
-
                 const snapshot = await database.collection("Products").get()
                 const result = []
                 snapshot.forEach(doc => {
                     result.push({ ...doc.data(), id: doc.id })
                 })
-                console.log(result)
                 setProductList(result)
-
+                const indexOfLastProduct = currentPage * 16
+                const indexOfFirstProduct = indexOfLastProduct - 16
+                setCurrentProductList(productList.slice(indexOfFirstProduct, indexOfLastProduct))
+                console.log(currentProductList)
             } catch (err) {
                 console.log(err)
             }
         }
         fetchProductList()
 
-    }, [])
+    }, [currentPage])
 
-    const indexOfLastProduct = currentPage * 16
-    const indexOfFirstProduct = indexOfLastProduct - 16
-    const currentProductList = (productList.slice(indexOfFirstProduct, indexOfLastProduct))
+    // useEffect(() => {
+    //     const indexOfLastProduct = currentPage * 16
+    //     const indexOfFirstProduct = indexOfLastProduct - 16
+    //     setCurrentProductList(productList.slice(indexOfFirstProduct, indexOfLastProduct))
+    // },[currentPage])
 
+    // const indexOfLastProduct = currentPage * 16
+    // const indexOfFirstProduct = indexOfLastProduct - 16
+    // // const currentProductList = (productList.slice(indexOfFirstProduct, indexOfLastProduct))
+    // setCurrentProductList([...productList.slice(indexOfFirstProduct, indexOfLastProduct)])
 
 
 
@@ -255,6 +236,15 @@ const Home = () => {
         setCurrentPage(number)
     }
 
+    const handleOnChangeFilter = (isLowToHigh) => {
+        if(isLowToHigh) {
+            // currentProductList = [...currentProductList.sort((a,b) => a.price > b.price)]
+            setCurrentProductList(currentProductList.sort((a,b) => a.price > b.price))
+            console.log(currentProductList)
+        } else {
+
+        }
+    }
 
 
     return (
@@ -270,11 +260,14 @@ const Home = () => {
                 </Col>
             </Row>
             <div className="home__filter">
-                Some FUNCTION to sort product, Sort by Price (Low to High and vise versa), by Rating ...
-                </div>
-            <div>
-                <Category />
+                <Filter
+                    onChangeFilter={handleOnChangeFilter}
+                />
+
             </div>
+            {/* <div>
+                <Category />
+            </div> */}
             <div className="home__container">
                 <Row className="home__row">
                     {currentProductList.map((product) => (
