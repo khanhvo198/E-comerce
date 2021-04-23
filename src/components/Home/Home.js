@@ -7,7 +7,7 @@ import { Col, Container, Row } from "reactstrap";
 import Category from "../Category/Category";
 import PaginationProduct from "../Pagination/PaginationProduct";
 import Product from "../Product/Product";
-import "./Home.css";
+import "./Home.scss";
 // import firebase from "firebase/app"
 import 'firebase/firestore'
 const Home = () => {
@@ -230,11 +230,11 @@ const Home = () => {
                 snapshot.forEach(doc => {
                     result.push({ ...doc.data(), id: doc.id })
                 })
-                console.log(result)
+                console.log("Product List: ", result)
                 setProductList(result)
 
             } catch (err) {
-                console.log(err)
+                console.log("Get Products Error: ", err)
             }
         }
         fetchProductList()
@@ -259,7 +259,7 @@ const Home = () => {
 
     return (
         <Container className="home">
-            {console.log(currentProductList)}
+            {console.log("Current Product List: ", currentProductList)}
             <Row className="home__banner">
                 <Col xs='8' className="home__banner--left pl-0 pr-0 pb-1" >
                     <Slider />
@@ -272,16 +272,16 @@ const Home = () => {
             <div className="home__filter">
                 Some FUNCTION to sort product, Sort by Price (Low to High and vise versa), by Rating ...
                 </div>
-            <div>
+            {/* <div>
                 <Category />
-            </div>
+            </div> */}
             <div className="home__container">
                 <Row className="home__row">
                     {currentProductList.map((product) => (
-                        <Col xs="3" key={product.id} >
+                        <Col key={product.id} >
                             <Link to={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                 <Product
-                                    image={Images.MAC_BOOK_PRO}
+                                    image={product.img}
                                     title={product.title}
                                     price={product.price}
                                     rating={product.rating}
