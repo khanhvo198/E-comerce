@@ -5,7 +5,8 @@ import { useEffect, useState } from "react"
 import { useParams, useRouteMatch } from "react-router"
 import { Col, Container, Row } from "reactstrap"
 import {Link} from 'react-router-dom'
-
+import PaginationProduct from "components/Pagination/PaginationProduct"
+import "./Search.css"
 
 
 const Search = () => {
@@ -16,6 +17,7 @@ const Search = () => {
 
 
     const [productList,setProductList] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
 
     useEffect(() => {
         const fetchProductList = async () => {
@@ -43,11 +45,19 @@ const Search = () => {
         fetchProductList()
     }, [])
 
+    const indexOfLastProduct = currentPage * 16
+    const indexOfFirstProduct = indexOfLastProduct - 16
+    const currentProductList = (productList.slice(indexOfFirstProduct, indexOfLastProduct))
+
+    const paginate = (number) => {
+        setCurrentPage(number)
+    }
+
     return (
         <Container>  
             <Row>
             {
-                productList.map((product) => (
+                currentProductList.map((product) => (
                 <Col xs="3" key={product.id} >
                     <Link to={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                         <Product
@@ -61,6 +71,14 @@ const Search = () => {
                 ))
             }
             </Row>
+            <Row className="search__pagination">
+                <PaginationProduct
+                    totalProducts={productList.length}
+                    paginate={paginate}
+
+                />
+            </Row>
+
         </Container>
     )
 
