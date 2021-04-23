@@ -111,7 +111,7 @@ function App() {
             <ProductDetail />
           </Route>
 
-          <Route path="/search/:brand">
+          <Route path="/search">
             <Search />
           </Route>
 

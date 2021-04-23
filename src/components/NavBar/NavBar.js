@@ -13,7 +13,7 @@ const NavBar = () => {
                     <Row>
                         <Nav className="mr-auto container-brand" navbar>
                             <Col xs='1'>
-                                <NavLink href="/search/apple" className="nav-link-custom">
+                                <NavLink href="/search?key=apple" className="nav-link-custom">
                                     <div className="item-container">
                                         <img src={Images.APPLE_BRAND} />
                                         {/* <p>APPLE</p> */}
@@ -21,7 +21,7 @@ const NavBar = () => {
                                 </NavLink>
                             </Col>
                             <Col xs='1'>
-                                <NavLink href="/search/xiaomi">
+                                <NavLink href="/search?key=xiaomi">
                                     <div className="item-container">
                                         <img src={Images.XIAOMI_BRAND} />
                                         {/* <p>XIAOMI</p> */}
@@ -29,7 +29,7 @@ const NavBar = () => {
                                 </NavLink>
                             </Col>
                             <Col xs='1'>
-                                <NavLink href="/search/huawei">
+                                <NavLink href="/search?key=huawei">
                                     <div className="item-container">
                                         <img src={Images.HUAWEI_BRAND} />
                                         {/* <p>HUAWEI</p> */}
@@ -37,7 +37,7 @@ const NavBar = () => {
                                 </NavLink>
                             </Col>
                             <Col xs='1'>
-                                <NavLink href="/search/lg">
+                                <NavLink href="/search?key=lg">
                                     <div className="item-container">
                                         <img src={Images.LG_BRAND} />
                                         {/* <p>LG</p> */}
@@ -45,7 +45,7 @@ const NavBar = () => {
                                 </NavLink>
                             </Col>
                             <Col xs='1'>
-                                <NavLink href="/search/hp">
+                                <NavLink href="/search?key=hp">
                                     <div className="item-container">
                                         <img src={Images.HP_BRAND} />
                                         {/* <p>HP</p> */}
@@ -53,7 +53,7 @@ const NavBar = () => {
                                 </NavLink>
                             </Col>
                             <Col xs='1'>
-                                <NavLink href="/search/dell">
+                                <NavLink href="/search?key=dell">
                                     <div className="item-container">
                                         <img src={Images.DELL_BRAND} />
                                         {/* <p>DELL</p> */}
@@ -61,7 +61,7 @@ const NavBar = () => {
                                 </NavLink>
                             </Col>
                             <Col xs='1'>
-                                <NavLink href="/search/asus">
+                                <NavLink href="/search?key=asus">
                                     <div className="item-container">
                                         <img src={Images.ASUS_BRAND} />
                                         {/* <p>ASUS</p> */}
@@ -69,7 +69,7 @@ const NavBar = () => {
                                 </NavLink>
                             </Col>
                             <Col xs='1'>
-                                <NavLink href="/search/vaio">
+                                <NavLink href="/search?key=vaio">
                                     <div className="item-container">
                                         <img src={Images.VAIO_BRAND} />
                                         {/* <p>VAIO</p> */}

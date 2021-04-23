@@ -1,60 +1,72 @@
+import PaginationProduct from "components/Pagination/PaginationProduct"
 import Product from "components/Product/Product"
 import Images from "constants/images"
 import db from "firebase/firebase.config"
 import { useEffect, useState } from "react"
-import { useParams, useRouteMatch } from "react-router"
+import { useLocation } from "react-router"
+import { Link } from 'react-router-dom'
 import { Col, Container, Row } from "reactstrap"
-import {Link} from 'react-router-dom'
-import PaginationProduct from "components/Pagination/PaginationProduct"
 import "./Search.css"
 
 
 const Search = () => {
 
 
-    const match = useRouteMatch()
-    const brand = match.params.brand
+    const useQuery = () => {
+        return new URLSearchParams(useLocation().search)
+    }
 
+    const query = useQuery()
 
     const [productList,setProductList] = useState([])
+    const [currentProductList,setCurrentProductList] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
 
     useEffect(() => {
+        // Implement useEffect in order to fetch API and get productList
         const fetchProductList = async () => {
-            // db.collection("Products").where("brand", "==", brand).get()
-            //     .then((productList) => {
-            //         console.log(productList)
-            //     })
-            console.log(brand)
-            const products = await db.collection("Products").get()
-            const productFetch = []
+            try {
+                const snapshot = await db.collection("Products").get()
+                const searchTerm = query.get("key")
+                const result = []
+                snapshot.forEach(doc => {
+                    result.push({ ...doc.data(), id: doc.id })
 
-            products.forEach((doc) => {
-                if(doc.data().specification.brand == brand) {
-                    productFetch.push(doc.data())
-                }
-            })
+                })
+                // console.log("result: ", result[0].specification.brand.toLowerCase().trim().includes(searchTerm.trim().toLowerCase()))
+                console.log(searchTerm)
 
-
-            // console.log(productList)
-            setProductList([...productFetch])
-            console.log(productList)
-
+                const filteredData = result.filter(item => 
+                    item.title.toLowerCase().trim().includes(searchTerm.toLowerCase().trim) ||
+                    item.specification.brand.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())
+                )
+                // console.log(filteredData)
+                // console.log("Product List: ", result)
+                // console.log(filteredData)
+                setProductList(filteredData)
+                // console.log(productList)
+            } catch (err) {
+                console.log("Get Products Error: ", err)
+            }
         }
-
         fetchProductList()
+
     }, [])
 
-    const indexOfLastProduct = currentPage * 16
-    const indexOfFirstProduct = indexOfLastProduct - 16
-    const currentProductList = (productList.slice(indexOfFirstProduct, indexOfLastProduct))
+    useEffect(() => {
+        const indexOfLastProduct = currentPage * 16
+        const indexOfFirstProduct = indexOfLastProduct - 16
+        setCurrentProductList(productList.slice(indexOfFirstProduct, indexOfLastProduct))
+    },[productList,currentPage])
+
+
 
     const paginate = (number) => {
         setCurrentPage(number)
     }
 
     return (
-        <Container>  
+        <Container> 
             <Row>
             {
                 currentProductList.map((product) => (
