@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { AiOutlineSearch } from 'react-icons/ai'
 import { Link, Redirect, useHistory } from 'react-router-dom'
-import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Input, InputGroup, InputGroupAddon, List, Row } from "reactstrap"
+import { Form ,Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, FormGroup, Input, InputGroup, InputGroupAddon, List, Row } from "reactstrap"
 import Cart from "../../feature/Cart/Cart"
 import "./Header.css"
 import firebase from 'firebase'
@@ -17,6 +17,7 @@ const Header = () => {
     const toggle = () => setDropdownOpen(prevState => !prevState)
     // console.log("User: ", user)
     const user = useSelector(state => state.user)
+    const [searchTerm,setSearchTerm] = useState('')
     const dispatch = useDispatch()
 
     const uiConfig = {
@@ -50,6 +51,20 @@ const Header = () => {
     }
 
 
+    const handleOnClickSearchBar = () => {
+        history.push(`/search?key=${searchTerm}`)
+        setSearchTerm('')
+        // console.log(searchTerm)
+    }
+
+    const handleSubmitForm = (e) => {
+        history.push(`/search?key=${searchTerm}`)
+        setSearchTerm('')
+        e.preventDefault()
+
+
+    }
+
     return (
         <>
         <Row className="header">
@@ -58,18 +73,36 @@ const Header = () => {
                     <h3 className="header__brand">BK SHOP</h3>
                 </Link>
             </Col>
-            <Col xs="8" className="header--search__bar">
+            {/* <Col xs="8" className="header--search__bar">
                 <InputGroup className="header--search__input">
-                    <Input placeholder="Search something ..." />
-                    <InputGroupAddon className="header--search__icon" addonType="append">
+                    <Input placeholder="Search something ..." onChange={event => setSearchTerm(event.target.value)} value={searchTerm}  />
+                    <InputGroupAddon className="header--search__icon" addonType="append"
+                        onClick = {handleOnClickSearchBar}
+                    >
                         <AiOutlineSearch className="header--searchIcon" />
                     </InputGroupAddon>
                 </InputGroup>
                 <Link to="/review" style={{ color: 'inherit', textDecoration: 'none' }} >
-                    {/* <AiOutlineShoppingCart className="header--cart"/>
-                        <span className="header--cart__count">0</span> */}
                     <Cart />
                 </Link>
+            </Col> */}
+            <Col md={8}>
+                <Form className="header--search__form" onSubmit={handleSubmitForm}>
+                    <FormGroup row className="h-100 align-self-center">
+                        <Col sm={10} className="d-flex">
+                            <Input className="align-self-center" placeholder="Search something ..." onChange={event => setSearchTerm(event.target.value)} value={searchTerm}/>
+                            <InputGroupAddon className="header--search__icon" addonType="append"
+                                onClick = {handleOnClickSearchBar}
+                                style={{cursor:'pointer'}}
+                            >
+                                <AiOutlineSearch className="header--searchIcon" />
+                            </InputGroupAddon>
+                        </Col>
+                        <Link to="/review" style={{ color: 'inherit', textDecoration: 'none' }} >
+                                <Cart />
+                        </Link>
+                    </FormGroup>
+                </Form>
             </Col>
             <Col xs="2" className="header--user">
                 <List type="inline" className="header--user__items">

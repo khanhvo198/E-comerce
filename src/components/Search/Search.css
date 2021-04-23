@@ -4,3 +4,8 @@
     margin-top: 30px;
     margin-bottom: 30px;
 }
+
+
+.search__row > * {
+    margin-top: 20px;
+}
