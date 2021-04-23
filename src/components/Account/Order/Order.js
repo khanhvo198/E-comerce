@@ -1,4 +1,6 @@
+import Filter from 'components/Filter/FIlter';
 import db, { storage } from 'firebase/firebase.config';
+import { current } from 'immer';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -13,9 +15,17 @@ Order.propTypes = {
 function Order(props) {
     const [orderList, setOrderList] = useState([])
     const user = useSelector(state => state.user)
+    const filterFields = ["Last 1 orders", "Last 2 orders", "Last 3 orders", "Last 5 orders", "Last 15 orders", "Last 30 orders", "All"]
+    const [currentField, setCurrentField] = useState(filterFields[0])
 
     useEffect(() => {
-        db.collection('Orders').where('userid', '==', user.uid).get().then((querySnapshot) => {
+        const limit = extractLimit(currentField)
+        const orderRef = limit === Infinity
+            ? db.collection('Orders').where('userid', '==', user.uid)
+            : db.collection('Orders').where('userid', '==', user.uid).limit(limit)
+
+        // how to sort by time ???
+        orderRef.get().then((querySnapshot) => {
             if (!querySnapshot.empty) {
                 const orderListPromise = querySnapshot.docs.map((orderDoc) => {
                     const { items, userid, orderTime, deliverTime, status, address, phone, receiver } = orderDoc.data()
@@ -52,17 +62,37 @@ function Order(props) {
                 })
             }
         })
-    }, [])
+    }, [currentField])
 
     const history = useHistory()
     const handleImageClick = (productid) => {
         history.push(`/product/${productid}`)
     }
 
+    const handleFilterChange = (field) => {
+        setCurrentField(field)
+    }
+
+    const extractLimit = (field) => {
+        if (field === "Last 1 orders") return 1
+        else if (field === "Last 2 orders") return 2
+        else if (field === "Last 3 orders") return 3
+        else if (field === "Last 5 orders") return 5
+        else if (field === "Last 15 orders") return 15
+        else if (field === "Last 30 orders") return 30
+        else if (field === "All") return Infinity
+    }
+
     return (
         <div className='order__list'>
             <Container>
                 <h2 className="order__list--header">My Order</h2>
+                <Filter
+                    header="Show"
+                    title={filterFields[0]}
+                    fields={filterFields}
+                    onChangeFilter={handleFilterChange}
+                />
                 {orderList.map((order) => (
                     <Container className="order">
                         <Row className="order__header">

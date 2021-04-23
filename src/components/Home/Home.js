@@ -66,8 +66,8 @@ const Home = () => {
         setCurrentPage(number)
     }
 
-    const handleOnChangeFilter = (isLowToHigh) => {
-        if (isLowToHigh) {
+    const handleOnChangeFilter = (field) => {
+        if (field === "Low to High") {
             const productListSorted = productList.sort((a, b) => a.price - b.price)
             setProductList([...productListSorted])
         } else {
@@ -92,6 +92,9 @@ const Home = () => {
             </Row>
             <div className="home__filter">
                 <Filter
+                    header="Filter by"
+                    title="Price"
+                    fields={["Low to High", "High to Low"]}
                     onChangeFilter={handleOnChangeFilter}
                 />
             </div>

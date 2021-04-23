@@ -14,28 +14,34 @@ import {
 
 
 
-const Filter = ({onChangeFilter}) => {
+const Filter = (props) => {
+    const { header, onChangeFilter, title, fields } = props
     const [isOpen, setIsOpen] = useState(false)
     const toggle = () => setIsOpen(!isOpen)
 
     return (
         <div>
             <Navbar color="light" light expand="md">
-                <NavbarBrand href="/">Filter by</NavbarBrand>
+                <NavbarBrand href="/">{header}</NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
-                                Price
+                                {title}
                             </DropdownToggle>
                             <DropdownMenu right>
-                                <DropdownItem onClick={() => onChangeFilter(true)}>
+                                {fields.map((field) => (
+                                    <DropdownItem onClick={() => onChangeFilter(field)}>
+                                        {field}
+                                    </DropdownItem>
+                                ))}
+                                {/* <DropdownItem onClick={() => onChangeFilter(true)}>
                                     Low to High
                                 </DropdownItem>
                                 <DropdownItem onClick={() => onChangeFilter(false)}>
                                     High to Low
-                                </DropdownItem>
+                                </DropdownItem> */}
                             </DropdownMenu>
                         </UncontrolledDropdown>
                     </Nav>
