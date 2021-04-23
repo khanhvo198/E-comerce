@@ -41,7 +41,7 @@ function App() {
 
       const userRef = db.collection("Users").doc(user.uid)
       const doc = await  userRef.get()
-      if(!doc.exists) {
+      // if(!doc.exists) {
         userRef.set({
           displayName: user.displayName,
           email: user.email,
@@ -54,7 +54,7 @@ function App() {
         }).catch(err => {
           console.log(err)
         })
-      }
+      // }
 
       
 
