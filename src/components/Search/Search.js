@@ -21,13 +21,13 @@ const Search = () => {
     const [productList,setProductList] = useState([])
     const [currentProductList,setCurrentProductList] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
+    const searchTerm = query.get("key")
 
     useEffect(() => {
         // Implement useEffect in order to fetch API and get productList
         const fetchProductList = async () => {
             try {
                 const snapshot = await db.collection("Products").get()
-                const searchTerm = query.get("key")
                 const result = []
                 snapshot.forEach(doc => {
                     result.push({ ...doc.data(), id: doc.id })
@@ -51,7 +51,7 @@ const Search = () => {
         }
         fetchProductList()
 
-    }, [])
+    }, [searchTerm])
 
     useEffect(() => {
         const indexOfLastProduct = currentPage * 16
@@ -67,13 +67,13 @@ const Search = () => {
 
     return (
         <Container> 
-            <Row>
+            <Row className="search__row">
             {
                 currentProductList.map((product) => (
                 <Col xs="3" key={product.id} >
                     <Link to={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                         <Product
-                            image={Images.MAC_BOOK_PRO}
+                            image={product.img}
                             title={product.title}
                             price={product.price}
                             rating={product.rating}
@@ -84,11 +84,12 @@ const Search = () => {
             }
             </Row>
             <Row className="search__pagination">
-                <PaginationProduct
-                    totalProducts={productList.length}
-                    paginate={paginate}
-
-                />
+                {productList.length > 0 ?
+                    <PaginationProduct
+                        totalProducts={productList.length}
+                        paginate={paginate}
+                    /> : ''
+                }
             </Row>
 
         </Container>

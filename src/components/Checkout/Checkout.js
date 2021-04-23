@@ -21,8 +21,12 @@ const Checkout = () => {
         const fetchAddressList = async () => {
             const currentUser = await db.collection("Users").doc(user.uid).get()
             const doc = currentUser.data().bookingAddress
-            setBookingAddressList(doc)
-            setCurrentAddress({ ...doc[0] })
+            if(doc != null) {
+                setBookingAddressList(doc)
+                setCurrentAddress({ ...doc[0] })
+            }
+
+            
             // setCurrentUser({...user.data()})
             // console.log(currentUser.data().bookingAddress)
         }
@@ -106,7 +110,7 @@ const Checkout = () => {
                                 <Label for="address"><b>Address:</b></Label>
                                 <Input type="select" onChange={event => handleSelectAddress(event)}>
                                     {/* {console.log(bookingAddressList)} */}
-                                    {bookingAddressList.map((item, index) => (
+                                    {bookingAddressList?.map((item, index) => (
                                         <option value={item.address}>{item.address}</option>
                                     ))}
                                 </Input>
