@@ -260,6 +260,7 @@ const Home = () => {
     return (
         <Container className="home">
             {console.log("Current Product List: ", currentProductList)}
+            {/* {console.log(currentProductList)} */}
             <Row className="home__banner">
                 <Col xs='8' className="home__banner--left pl-0 pr-0 pb-1" >
                     <Slider />
@@ -288,8 +289,6 @@ const Home = () => {
                                 />
                             </Link>
                         </Col>
-
-
                     ))}
                 </Row>
             </div>
