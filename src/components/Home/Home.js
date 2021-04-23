@@ -19,7 +19,7 @@ const Home = () => {
     const [productList, setProductList] = useState([])
 
     // 
-    const [currentProductList,setCurrentProductList] = useState([])
+    const [currentProductList, setCurrentProductList] = useState([])
 
 
     const [currentPage, setCurrentPage] = useState(1)
@@ -50,7 +50,7 @@ const Home = () => {
         const indexOfLastProduct = currentPage * 16
         const indexOfFirstProduct = indexOfLastProduct - 16
         setCurrentProductList(productList.slice(indexOfFirstProduct, indexOfLastProduct))
-    },[productList,currentPage])
+    }, [productList, currentPage])
 
     // const indexOfLastProduct = currentPage * 16
     // const indexOfFirstProduct = indexOfLastProduct - 16
@@ -67,11 +67,11 @@ const Home = () => {
     }
 
     const handleOnChangeFilter = (isLowToHigh) => {
-        if(isLowToHigh) {
-            const productListSorted = productList.sort((a,b) => a.price - b.price)
+        if (isLowToHigh) {
+            const productListSorted = productList.sort((a, b) => a.price - b.price)
             setProductList([...productListSorted])
         } else {
-            const productListSorted = productList.sort((a,b) => b.price - a.price)
+            const productListSorted = productList.sort((a, b) => b.price - a.price)
             setProductList([...productListSorted])
         }
     }
@@ -82,10 +82,10 @@ const Home = () => {
             {console.log("Current Product List: ", currentProductList)}
             {/* {console.log(currentProductList)} */}
             <Row className="home__banner">
-                <Col xs='8' className="home__banner--left pl-0 pr-0 pb-1" >
+                <Col lg='8' className="home__banner--left pl-0 pr-0 pb-1" >
                     <Slider />
                 </Col>
-                <Col xs='4' className="home__banner--right pl-0 pr-0">
+                <Col lg='4' className="home__banner--right pl-0 pr-0">
                     <img alt="banner_image" src="https://www.anphatpc.com.vn/media/news/0812_wp4676574-4k-pc-wallpapers.jpg" />
                     <img alt="banner_image" src="https://www.anphatpc.com.vn/media/news/0812_wp4676574-4k-pc-wallpapers.jpg" />
                 </Col>

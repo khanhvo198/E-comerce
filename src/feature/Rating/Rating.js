@@ -20,9 +20,17 @@ function Rating(props) {
         var ratingList = [];
         for (let i = 0; i < maxRating; i++) {
             if (rating === 0) {
-                ratingList.push(<span onClick={() => handleIconClick(i + 1)}><AiOutlineStar size={size} color='red' /></span>)
+                ratingList.push(
+                    <span onClick={() => handleIconClick(i + 1)}>
+                        <AiOutlineStar style={{ cursor: `${onSelect ? 'pointer' : 'default'}` }} size={size} color='red' />
+                    </span>
+                )
             } else {
-                ratingList.push(<span onClick={() => handleIconClick(i + 1)}><AiFillStar size={size} color='red' /></span>)
+                ratingList.push(
+                    <span onClick={() => handleIconClick(i + 1)}>
+                        <AiFillStar style={{ cursor: `${onSelect ? 'pointer' : 'default'}` }} size={size} color='red' />
+                    </span>
+                )
                 rating -= 1
             }
         }
