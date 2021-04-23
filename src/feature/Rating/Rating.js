@@ -1,29 +1,38 @@
+import Policy from 'constants/policy';
 import React from 'react';
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 Rating.propTypes = {
+
 };
 
 Rating.defaultProps = {
+    maxRating: Policy.MAX_RATING,
     rating: 5,
     size: 15,
+    onSelect: null,
 }
 
 function Rating(props) {
-    const { rating, size } = props;
-    const MAX_RATING = 5;
+    const { rating, size, onSelect, maxRating } = props
 
-    function display(rating) {
+    const display = (rating) => {
         var ratingList = [];
-        for (let i = 0; i < MAX_RATING; i++) {
+        for (let i = 0; i < maxRating; i++) {
             if (rating === 0) {
-                ratingList.push(<AiOutlineStar size={size} color='red' />)
+                ratingList.push(<span onClick={() => handleIconClick(i + 1)}><AiOutlineStar size={size} color='red' /></span>)
             } else {
-                ratingList.push(<AiFillStar size={size} color='red' />)
+                ratingList.push(<span onClick={() => handleIconClick(i + 1)}><AiFillStar size={size} color='red' /></span>)
                 rating -= 1
             }
         }
         return ratingList
+    }
+
+    const handleIconClick = (index) => {
+        if (onSelect) {
+            onSelect(index)
+        }
     }
 
     return (
