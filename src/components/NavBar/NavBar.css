@@ -7,9 +7,13 @@ img {
     justify-content: space-around;
 }
 
-
 .item-container {
     display: flex;
+    transition: transform 0.2s;
+}
+
+.item-container:hover {
+    transform: scale(1.2);
 }
 
 .item-container > p {
@@ -22,5 +26,3 @@ img {
 .a {
     height: 100%;
 }
-
-
