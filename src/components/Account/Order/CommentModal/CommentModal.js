@@ -4,6 +4,7 @@ import { Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, M
 import Policy from 'constants/policy';
 import db, { storage, firebase } from 'firebase/firebase.config';
 import { useSelector } from 'react-redux';
+import Rating from 'feature/Rating/Rating';
 
 CommentModal.propTypes = {
 
@@ -12,7 +13,7 @@ CommentModal.propTypes = {
 function CommentModal(props) {
     const { label, productid, title } = props
     const [isOpen, setIsOpen] = useState(false)
-    const toggle = () => setIsOpen(!isOpen)
+    const toggleModal = () => setIsOpen(!isOpen)
 
     const [rating, setRating] = useState(Policy.MAX_RATING)
     const [comment, setComment] = useState('')
@@ -73,27 +74,24 @@ function CommentModal(props) {
         const data = {
             comment: comment,
             rating: parseInt(rating),
-            // imageList: filesUpload.map((file) => (
-            //     file.name
-            // )),
         }
         db.collection('Products')
             .doc(productid)
             .collection('Comments')
             .doc(user.uid)
-            .set(data).then(() => {
+            .set(data, { merge: true }).then(() => {
                 uploadFiles(filesUpload)
             }).catch((error) => {
                 console.log("Upload Comment Error: ", error)
             }).finally(() => {
                 setFiles([])
-                toggle()
+                toggleModal()
             })
     }
 
-    const handleRatingChange = (e) => {
-        e.preventDefault()
-        setRating(e.target.value)
+    const handleRatingChange = (index) => {
+        console.log("Rating: ", index)
+        setRating(index)
     }
 
     const handleCommentChange = (e) => {
@@ -108,21 +106,14 @@ function CommentModal(props) {
 
     return (
         <div className='comment-modal'>
-            <Button color='primary' onClick={toggle}>{label}</Button>
-            <Modal isOpen={isOpen} toggle={toggle}>
-                <ModalHeader toggle={toggle}>{title}</ModalHeader>
+            <Button color='primary' onClick={toggleModal}>{label}</Button>
+            <Modal isOpen={isOpen} toggle={toggleModal}>
+                <ModalHeader toggle={toggleModal}>{title}</ModalHeader>
                 <ModalBody>
                     <Form>
                         <FormGroup>
                             <Label for={`rating${productid}`}>Rating:</Label>
-                            <Input
-                                type="number"
-                                max={Policy.MAX_RATING}
-                                min={1}
-                                step={1}
-                                name="rating"
-                                defaultValue={Policy.MAX_RATING}
-                                onChange={handleRatingChange} />
+                            <Rating size={20} rating={rating} onSelect={handleRatingChange} />
                         </FormGroup>
                         <FormGroup>
                             <Label for={`comment${productid}`}>Comment:</Label>
@@ -150,7 +141,7 @@ function CommentModal(props) {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" onClick={handleSubmit}>Submit</Button>{' '}
-                    <Button color="secondary" onClick={toggle}>Cancel</Button>
+                    <Button color="secondary" onClick={toggleModal}>Cancel</Button>
                 </ModalFooter>
             </Modal>
         </div>
