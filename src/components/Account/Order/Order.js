@@ -83,6 +83,13 @@ function Order(props) {
         else if (field === "All") return Infinity
     }
 
+    const statusColor = (status) => {
+        if (status === 'pending') return 'red'
+        else if (status === 'processing') return 'orange'
+        else if (status === 'delivered') return 'green'
+        else if (status === 'cancelled') return 'gray'
+    }
+
     return (
         <div className='order__list'>
             <Container>
@@ -113,7 +120,7 @@ function Order(props) {
                             </Col>
                             <Col xs="2">
                                 <p><b>Status</b></p>
-                                <p className="header__status">Delivered</p>
+                                <p className="header__status" style={{ color: `${statusColor(order.status.toLowerCase())}` }}>{order.status.toLowerCase()}</p>
                             </Col>
                         </Row>
                         {order.items.map((orderItem) => (
@@ -135,8 +142,8 @@ function Order(props) {
                                 </Col>
 
                                 <Col xs="2" className="item__comment">
-                                    {/* <p>Comment</p> */}
-                                    <CommentModal label='Comment' title={orderItem.title} productid={orderItem.productid} />
+                                    {(order.status === 'delivered') &&
+                                        <CommentModal label='Comment' title={orderItem.title} productid={orderItem.productid} />}
                                 </Col>
                             </Row>
                         ))}

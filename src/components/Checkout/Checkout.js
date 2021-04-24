@@ -21,12 +21,12 @@ const Checkout = () => {
         const fetchAddressList = async () => {
             const currentUser = await db.collection("Users").doc(user.uid).get()
             const doc = currentUser.data().bookingAddress
-            if(doc != null) {
+            if (doc != null) {
                 setBookingAddressList(doc)
                 setCurrentAddress({ ...doc[0] })
             }
 
-            
+
             // setCurrentUser({...user.data()})
             // console.log(currentUser.data().bookingAddress)
         }
@@ -58,7 +58,7 @@ const Checkout = () => {
         db.collection("Orders").add({
             items: orderCart,
             orderTime: Date(Date.now()),
-            status: "Processing",
+            status: "pending",
             userid: user.uid,
             deliverTime: "",
             address: currentAddress.address,
