@@ -18,8 +18,8 @@ const Search = () => {
 
     const query = useQuery()
 
-    const [productList,setProductList] = useState([])
-    const [currentProductList,setCurrentProductList] = useState([])
+    const [productList, setProductList] = useState([])
+    const [currentProductList, setCurrentProductList] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     const searchTerm = query.get("key")
 
@@ -36,7 +36,7 @@ const Search = () => {
                 // console.log("result: ", result[0].specification.brand.toLowerCase().trim().includes(searchTerm.trim().toLowerCase()))
                 console.log(searchTerm)
 
-                const filteredData = result.filter(item => 
+                const filteredData = result.filter(item =>
                     item.title.toLowerCase().trim().includes(searchTerm.toLowerCase().trim) ||
                     item.specification.brand.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())
                 )
@@ -57,7 +57,7 @@ const Search = () => {
         const indexOfLastProduct = currentPage * 16
         const indexOfFirstProduct = indexOfLastProduct - 16
         setCurrentProductList(productList.slice(indexOfFirstProduct, indexOfLastProduct))
-    },[productList,currentPage])
+    }, [productList, currentPage])
 
 
 
@@ -66,22 +66,22 @@ const Search = () => {
     }
 
     return (
-        <Container> 
+        <Container className='search'>
             <Row className="search__row">
-            {
-                currentProductList.map((product) => (
-                <Col xs="3" key={product.id} >
-                    <Link to={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <Product
-                            image={product.img}
-                            title={product.title}
-                            price={product.price}
-                            rating={product.rating}
-                        />
-                    </Link>
-                </Col>  
-                ))
-            }
+                {
+                    currentProductList.map((product) => (
+                        <Col xs="3" key={product.id} >
+                            <Link to={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <Product
+                                    image={product.img}
+                                    title={product.title}
+                                    price={product.price}
+                                    rating={product.rating}
+                                />
+                            </Link>
+                        </Col>
+                    ))
+                }
             </Row>
             <Row className="search__pagination">
                 {productList.length > 0 ?

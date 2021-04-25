@@ -5,7 +5,10 @@
     margin-bottom: 30px;
 }
 
-
 .search__row > * {
     margin-top: 20px;
+}
+
+.search {
+    min-height: 90vh;
 }

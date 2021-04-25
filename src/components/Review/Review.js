@@ -66,7 +66,7 @@ const Review = () => {
                             <hr />
                             <Row className="item">
                                 <Col xs="4" className="item__image">
-                                    <img src={Images.THUMBNAIL} className="w-100" alt="This is an product" />
+                                    <img src={cart[getIndex(item.id, cart)].img} className="w-100" alt="This is an product" />
                                 </Col>
                                 <Col xs="8" className="item__detail">
                                     <div className="item__top">
