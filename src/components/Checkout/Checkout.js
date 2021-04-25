@@ -50,7 +50,7 @@ const Checkout = () => {
 
     const handleOnClickOrder = () => {
 
-        if(user.uid) {
+        if(user.uid && Object.keys(currentAddress).length > 0 ) {
             const orderCartPromise = cart.map((item) => {
                 return db.collection('Products').doc(item.id).get().then((productDoc) => (
                     { ...productDoc.data(), productid: item.id, quantity: item.quantity }

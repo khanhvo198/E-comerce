@@ -19,7 +19,7 @@ import './ProductCard.scss';
 // };
 
 function ProductCard(props) {
-    const { title, commentList, sales, price, img, specification } = props
+    const { title, commentList, sales, price, img, specification , imgList } = props
     const { brand, cpu, Ram, storage, design, size, guarantee } = specification
     const [quantity, setQuantity] = useState(1);
     const cart = useSelector(state => state.cart)
@@ -69,9 +69,12 @@ function ProductCard(props) {
                     <Col lg='6'>
                         <Row className='justify-content-between mb-3'>
                             <Col lg='12' className='productcard__img'><img alt='macbook' src={img} /></Col>
+                            {/* <Col lg='4' className='productcard__img'><img alt='macbook' src={img} /></Col>
                             <Col lg='4' className='productcard__img'><img alt='macbook' src={img} /></Col>
-                            <Col lg='4' className='productcard__img'><img alt='macbook' src={img} /></Col>
-                            <Col lg='4' className='productcard__img'><img alt='macbook' src={img} /></Col>
+                            <Col lg='4' className='productcard__img'><img alt='macbook' src={img} /></Col> */}
+                            {imgList.length > 0 &&imgList.map((image) => (
+                                <Col lg={Math.ceil(12/imgList.length) > 4 ? 4 :Math.ceil(12/imgList.length)  } className='productcard__img'><img alt='macbook' src={image} /></Col>
+                            ))}
                         </Row>
                     </Col>
                     <Col className='productcard__info' lg='6'>
