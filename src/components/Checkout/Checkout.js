@@ -19,12 +19,15 @@ const Checkout = () => {
 
     useEffect(() => {
         const fetchAddressList = async () => {
-            const currentUser = await db.collection("Users").doc(user.uid).get()
-            const doc = currentUser.data().bookingAddress
-            if (doc != null) {
-                setBookingAddressList(doc)
-                setCurrentAddress({ ...doc[0] })
+            if(user.uid) {
+                const currentUser = await db.collection("Users").doc(user.uid).get()
+                const doc = currentUser.data().bookingAddress
+                if (doc != null) {
+                    setBookingAddressList(doc)
+                    setCurrentAddress({ ...doc[0] })
+                }
             }
+
 
 
             // setCurrentUser({...user.data()})
@@ -47,28 +50,33 @@ const Checkout = () => {
 
     const handleOnClickOrder = () => {
 
-        const orderCartPromise = cart.map((item) => {
-            return db.collection('Products').doc(item.id).get().then((productDoc) => (
-                { ...productDoc.data(), productid: item.id, quantity: item.quantity }
-            ))
-        })
-
-        Promise.all(orderCartPromise).then((orderCart) => {
-            db.collection("Orders").add({
-                items: orderCart,
-                orderTime: Date(Date.now()),
-                status: "pending",
-                userid: user.uid,
-                deliverTime: "",
-                address: currentAddress.address,
-                phone: currentAddress.phone,
-                receiver: currentAddress.fullname,
-            }).then(() => {
-                const action = clearCart()
-                dispatch(action)
-                history.push("/account/order")
+        if(user.uid) {
+            const orderCartPromise = cart.map((item) => {
+                return db.collection('Products').doc(item.id).get().then((productDoc) => (
+                    { ...productDoc.data(), productid: item.id, quantity: item.quantity }
+                ))
             })
-        })
+    
+            Promise.all(orderCartPromise).then((orderCart) => {
+                db.collection("Orders").add({
+                    items: orderCart,
+                    orderTime: Date(Date.now()),
+                    status: "pending",
+                    userid: user.uid,
+                    deliverTime: "",
+                    address: currentAddress.address,
+                    phone: currentAddress.phone,
+                    receiver: currentAddress.fullname,
+                }).then(() => {
+                    const action = clearCart()
+                    dispatch(action)
+                    history.push("/account/order")
+                })
+            })
+        } else {
+            console.log("Not found user")
+        }
+
     }
 
 
@@ -116,7 +124,11 @@ const Checkout = () => {
                             </FormGroup>
 
                         </Col>
-                        <Col xs='2' className="checkout__address-button"><Link to='/account'>Edit</Link></Col>
+                        <Col xs='2' className="checkout__address-button">{
+                            user.uid ? <Link to='/account'>Edit</Link>
+                            : <Link to='/'>Edit</Link>
+
+                        }</Col>
                     </Row>
                     <Row className="checkout__phone">
                         {/* {console.log(currentAddress)} */}
