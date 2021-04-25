@@ -86,8 +86,8 @@ const Home = () => {
                     <Slider />
                 </Col>
                 <Col lg='4' className="home__banner--right pl-0 pr-0">
-                    <img alt="banner_image" src="https://www.anphatpc.com.vn/media/news/0812_wp4676574-4k-pc-wallpapers.jpg" />
-                    <img alt="banner_image" src="https://www.anphatpc.com.vn/media/news/0812_wp4676574-4k-pc-wallpapers.jpg" />
+                    <img alt="banner_image" src={Images.BANNER1} />
+                    <img alt="banner_image" src={Images.BANNER2} />
                 </Col>
             </Row>
             <div className="home__filter">

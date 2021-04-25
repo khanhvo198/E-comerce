@@ -16,7 +16,8 @@ import lenovo from 'assets/images/lenovo.png'
 import lg from 'assets/images/lg.png'
 import vaio from 'assets/images/vaio.png'
 import xiaomi from 'assets/images/xiaomi_2.png'
-
+import banner1 from 'assets/images/Banner1.png'
+import banner2 from 'assets/images/Banner2.png'
 
 
 const Images = {
@@ -38,6 +39,8 @@ const Images = {
     LG_BRAND: lg,
     VAIO_BRAND: vaio,
     XIAOMI_BRAND: xiaomi,
+    BANNER1: banner1,
+    BANNER2: banner2,
 }
 
 export default Images;
