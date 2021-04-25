@@ -4,54 +4,63 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Button } from "reactstrap"
-import {setQuantityInCart,removeProduct} from '../../feature/Cart/CartSlice'
+import { setQuantityInCart, removeProduct } from '../../feature/Cart/CartSlice'
 
 import './Review.css'
 const Review = () => {
 
-    const [subtotal,setSubtotal] = useState(0)
+    const [subtotal, setSubtotal] = useState(0)
     const cart = useSelector(state => state.cart)
     const dispatch = useDispatch()
 
 
     useEffect(() => {
-        const subtotal = cart?.reduce((amount, item) => amount + item.price*item.quantity, 0)
+        const subtotal = cart?.reduce((amount, item) => amount + item.price * item.quantity, 0)
         setSubtotal(subtotal)
     }, [cart])
 
 
+    const getIndex = (id, cart) => {
+        for (let i = 0; i < cart.length; i++) {
+            if (id === cart[i].id) {
+                return i
+            }
+        }
+        return -1
+    }
 
 
     const handleOnIncrease = (id, quantity) => {
         // const quantity = 100
-        const action = setQuantityInCart({id, quantity: quantity+1})
+        const index = getIndex(id, cart)
+        const action = setQuantityInCart({ id, quantity: Math.min(cart[index].instock, quantity + 1) })
         dispatch(action)
-        
+
     }
 
 
     const handleOnDecrease = (id, quantity) => {
-        const action = setQuantityInCart({id, quantity: quantity - 1})
+        const action = setQuantityInCart({ id, quantity: quantity - 1 })
         dispatch(action)
     }
 
 
     const handleOnDelete = (id) => {
-        const action = removeProduct({id})
+        const action = removeProduct({ id })
         console.log(action)
         dispatch(action)
     }
 
-    
+
 
 
 
     return (
         <Container className="review">
             {/* {console.log(cart)} */}
-                <h1 className="review__title">Review Your Bag</h1>
-                <Row>
-                    <Col md="9" >
+            <h1 className="review__title">Review Your Bag</h1>
+            <Row>
+                <Col md="9" >
                     {cart.map((item) => (
                         <div key={item.id}>
                             <hr />
@@ -70,7 +79,7 @@ const Review = () => {
                                     </div>
 
                                     <div className="item__quantity">
-                                        <QuantityAdder 
+                                        <QuantityAdder
                                             quantity={item.quantity}
                                             maxItems={5}
                                             onIncrease={() => handleOnIncrease(item.id, item.quantity)}
@@ -78,7 +87,7 @@ const Review = () => {
                                         />
                                     </div>
                                     <div className="item__delete">
-                                        <Button className="button__delete" 
+                                        <Button className="button__delete"
                                             color="none"
                                             onClick={() => handleOnDelete(item.id)}
                                         >
@@ -88,7 +97,7 @@ const Review = () => {
                                 </Col>
                             </Row>
                         </div>
-                        
+
                     ))}
                 </Col>
 
@@ -114,10 +123,10 @@ const Review = () => {
                         </div>
 
                         <div className="review__checkout">
-                            <Link to='/checkout' className={{textDecoration:'none',color:'inherit', }}>
+                            <Link to='/checkout' className={{ textDecoration: 'none', color: 'inherit', }}>
                                 <Button className="review__button">Checkout</Button>
                             </Link>
-                            <Link to='#' className={{textDecoration:'none', color:'inherit'}}>
+                            <Link to='#' className={{ textDecoration: 'none', color: 'inherit' }}>
                                 <Button className="review__pay">Pay with installments</Button>
                             </Link>
                         </div>
