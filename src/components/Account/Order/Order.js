@@ -21,8 +21,8 @@ function Order(props) {
     useEffect(() => {
         const limit = extractLimit(currentField)
         const orderRef = limit === Infinity
-            ? db.collection('Orders').where('userid', '==', user.uid)
-            : db.collection('Orders').where('userid', '==', user.uid).limit(limit)
+            ? db.collection('Orders').where('userid', '==', user.uid).orderBy('orderTime', 'desc')
+            : db.collection('Orders').where('userid', '==', user.uid).orderBy('orderTime', 'desc').limit(limit)
 
         // how to sort by time ???
         orderRef.get().then((querySnapshot) => {

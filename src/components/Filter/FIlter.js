@@ -21,7 +21,7 @@ const Filter = (props) => {
 
     return (
         <div>
-            <Navbar color="light" light expand="md">
+            <Navbar color="white" light expand="md">
                 <NavbarBrand href="/">{header}</NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
