@@ -17,6 +17,15 @@ const Checkout = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
+    const getIndex = (id, cart) => {
+        for (let i = 0; i < cart.length; i++) {
+            if (id === cart[i].id) {
+                return i
+            }
+        }
+        return -1
+    }
+
     useEffect(() => {
         const fetchAddressList = async () => {
             if (user.uid) {
@@ -92,7 +101,7 @@ const Checkout = () => {
                 cart.map((item, index) => (
                     <Row className="checkout__item" key={index}>
                         <Col xs="3" className="checkout__item--image">
-                            <img src={Images.THUMBNAIL} />
+                            <img src={cart[getIndex(item.id, cart)].img} />
                         </Col>
                         <Col xs="4" className="checkout__item--detail">
                             <div className="checkout__item--title">
