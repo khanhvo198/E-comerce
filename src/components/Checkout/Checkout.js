@@ -47,28 +47,27 @@ const Checkout = () => {
 
     const handleOnClickOrder = () => {
 
-        const orderCart = cart.map((item) => (
-            {
-                productid: item.id,
-                price: item.price,
-                quantity: item.quantity
-            }
-        ))
+        const orderCartPromise = cart.map((item) => {
+            return db.collection('Products').doc(item.id).get().then((productDoc) => (
+                { ...productDoc.data(), productid: item.id, quantity: item.quantity }
+            ))
+        })
 
-        db.collection("Orders").add({
-            items: orderCart,
-            orderTime: Date(Date.now()),
-            status: "pending",
-            userid: user.uid,
-            deliverTime: "",
-            address: currentAddress.address,
-            phone: currentAddress.phone,
-            receiver: currentAddress.fullname,
-        }).then(() => {
-            const action = clearCart()
-            dispatch(action)
-            history.push("/account/order")
-
+        Promise.all(orderCartPromise).then((orderCart) => {
+            db.collection("Orders").add({
+                items: orderCart,
+                orderTime: Date(Date.now()),
+                status: "pending",
+                userid: user.uid,
+                deliverTime: "",
+                address: currentAddress.address,
+                phone: currentAddress.phone,
+                receiver: currentAddress.fullname,
+            }).then(() => {
+                const action = clearCart()
+                dispatch(action)
+                history.push("/account/order")
+            })
         })
     }
 

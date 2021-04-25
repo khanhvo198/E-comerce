@@ -27,39 +27,52 @@ function Order(props) {
         // how to sort by time ???
         orderRef.get().then((querySnapshot) => {
             if (!querySnapshot.empty) {
-                const orderListPromise = querySnapshot.docs.map((orderDoc) => {
+                const orderList = querySnapshot.docs.map((orderDoc) => {
                     const { items, userid, orderTime, deliverTime, status, address, phone, receiver } = orderDoc.data()
-                    const itemsPromise = items.map((item) => {
-                        // get item title, image
-                        return db.collection('Products').doc(item.productid).get().then((productDoc) => (
-                            {
-                                title: productDoc.data().title,
-                                img: productDoc.data().img,
-                                price: item.price,
-                                quantity: item.quantity,
-                                productid: productDoc.id,
-                            }
-                        ))
-                    })
+                    // const itemsPromise = items.map((item) => {
+                    //     // get item title, image
+                    //     return db.collection('Products').doc(item.productid).get().then((productDoc) => (
+                    //         {
+                    //             title: productDoc.data().title,
+                    //             img: productDoc.data().img,
+                    //             price: item.price,
+                    //             quantity: item.quantity,
+                    //             productid: productDoc.id,
+                    //         }
+                    //     ))
+                    // })
 
                     // return order
-                    return Promise.all(itemsPromise).then((newItems) => (
-                        {
-                            id: orderDoc.id,
-                            receiver: receiver,
-                            orderTime: orderTime,
-                            deliverTime: deliverTime,
-                            status: status,
-                            address: address,
-                            phone: phone,
-                            items: newItems,
-                        }
-                    ))
+                    return {
+                        id: orderDoc.id,
+                        receiver: receiver,
+                        orderTime: orderTime,
+                        deliverTime: deliverTime,
+                        status: status,
+                        address: address,
+                        phone: phone,
+                        items: items,
+                    }
+
+                    // return Promise.all(itemsPromise).then((newItems) => (
+                    //     {
+                    //         id: orderDoc.id,
+                    //         receiver: receiver,
+                    //         orderTime: orderTime,
+                    //         deliverTime: deliverTime,
+                    //         status: status,
+                    //         address: address,
+                    //         phone: phone,
+                    //         items: newItems,
+                    //     }
+                    // ))
                 })
 
-                Promise.all(orderListPromise).then((newOrderList) => {
-                    setOrderList(newOrderList)
-                })
+                setOrderList(orderList)
+
+                // Promise.all(orderListPromise).then((newOrderList) => {
+                //     setOrderList(newOrderList)
+                // })
             }
         })
     }, [currentField])

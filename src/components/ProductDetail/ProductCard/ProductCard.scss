@@ -61,6 +61,12 @@
             }
         }
 
+        &__total-quantity {
+            @extend .px-2, .my-0;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
         &__addtocart {
             @extend .align-self-center, .my-3;
             width: 10em;

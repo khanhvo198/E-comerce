@@ -1,3 +1,4 @@
+import Policy from "constants/policy";
 import { addProduct, setQuantityInCart } from "feature/Cart/CartSlice";
 import Rating from 'feature/Rating/Rating';
 import React, { useState } from 'react';
@@ -18,7 +19,7 @@ import './ProductCard.scss';
 // };
 
 function ProductCard(props) {
-    const { title, commentList, numItemsSold, price, img, specification } = props
+    const { title, commentList, sales, price, img, specification } = props
     const { brand, cpu, Ram, storage, design, size, guarantee } = specification
     const [quantity, setQuantity] = useState(1);
     const cart = useSelector(state => state.cart)
@@ -35,12 +36,12 @@ function ProductCard(props) {
 
 
     const handleOnAddToCart = () => {
-        const action = addProduct({ ...props, quantity });
+        const action = addProduct({ ...props, quantity, instock: Math.min(Policy.MAX_ITEM, props.quantity) });
         const index = getIndex(props.id, cart)
         const isAdd = index === -1 ? false : true
 
         if (isAdd) {
-            const action = setQuantityInCart({ id: props.id, quantity: quantity + cart[index].quantity })
+            const action = setQuantityInCart({ id: props.id, quantity: Math.min(cart[index].instock, quantity + cart[index].quantity) })
             dispatch(action)
             return
         }
@@ -85,9 +86,10 @@ function ProductCard(props) {
                             {/* href MUST be #comment-card for correct linking to CommentCard */}
                             <a href='#comment-card' className='productcard__info__comment'><span className='productcard__info__statistic__number'>{commentList.length}</span><span>comments</span></a>
                             <div>|</div>
-                            <div className='productcard__info__itemsold'><span className='productcard__info__statistic__number'>{numItemsSold}</span><span>items sold</span></div>
+                            <div className='productcard__info__itemsold'><span className='productcard__info__statistic__number'>{sales === 0 ? '0' : sales}</span><span>items sold</span></div>
                         </div>
                         <div className='productcard__info__price'>{price}$</div>
+                        <div className='productcard__info__total-quantity' style={{ color: `${props.quantity !== 0 ? 'black' : 'red'}` }}>{props.quantity !== 0 ? props.quantity + ' items in stock' : 'out of stock'}</div>
                         <Container className='productcard__info__specification'>
                             <Row>
                                 <Col lg='4' className='productcard__info__specification--key'>Brand:</Col>
@@ -124,15 +126,18 @@ function ProductCard(props) {
                                 </Row>
                             ))} */}
                         </Container>
-                        <div className='productcard__info__quantity'>
-                            <div>Quantity:</div>
-                            <QuantityAdder quantity={quantity} maxItems={5} onIncrease={handleOnIncrease} onDecrease={handleOnDecrease} />
-                        </div>
-                        <Button className='productcard__info__addtocart' color='primary'
-                            onClick={handleOnAddToCart}
-                        >
-                            ADD TO CART
-                        </Button>
+
+                        {props.quantity !== 0 &&
+                            <div className='productcard__info__quantity'>
+                                <div>Quantity:</div>
+                                <QuantityAdder quantity={quantity} maxItems={Math.min(Policy.MAX_ITEM, props.quantity)} onIncrease={handleOnIncrease} onDecrease={handleOnDecrease} />
+                            </div>}
+                        {props.quantity !== 0 &&
+                            <Button className='productcard__info__addtocart' color='primary'
+                                onClick={handleOnAddToCart}
+                            >
+                                ADD TO CART
+                        </Button>}
                     </Col>
                 </Row>
             </Container>
