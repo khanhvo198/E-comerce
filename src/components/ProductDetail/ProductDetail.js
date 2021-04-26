@@ -71,7 +71,7 @@ const ProductDetail = () => {
 
 
     return (
-        <div className='container-fluid' style={{ backgroundColor: '#f5f5f5' }}>
+        <div className='container-fluid' style={{ backgroundColor: '#f5f5f5', minHeight: '90vh' }}>
             {productNotSold
                 ? <div>This product is not sold anymore </div>
                 : (!productInfo ? <Spinner color='primary' /> :

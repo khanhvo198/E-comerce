@@ -109,7 +109,7 @@ function Order(props) {
                 <h2 className="order__list--header">My Order</h2>
                 <Filter
                     header="Show"
-                    title={filterFields[0]}
+                    title={currentField}
                     fields={filterFields}
                     onChangeFilter={handleFilterChange}
                 />
@@ -118,7 +118,7 @@ function Order(props) {
                         <Row className="order__header">
                             <Col xs="9" className="header__time">
                                 <p><b>Order</b> <span className="order__id">{order.id}</span></p>
-                                <p className="order__date--time">Placed on {order.orderTime} </p>
+                                <p className="order__date--time">Placed on {new Date(order.orderTime).toString()} </p>
                                 <p className="order__date--address">Address: {order.address} </p>
                                 <p className="order__date--receiver">Receiver: {order.receiver} </p>
                                 <p className="order__date--phone">Phone: {order.phone} </p>
