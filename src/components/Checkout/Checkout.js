@@ -71,7 +71,7 @@ const Checkout = () => {
                 Promise.all(orderCartPromise).then((orderCart) => {
                     db.collection("Orders").add({
                         items: orderCart,
-                        orderTime: Date(Date.now()),
+                        orderTime: new Date(Date.now()).getTime(),
                         status: "pending",
                         userid: user.uid,
                         deliverTime: "",
